@@ -11,9 +11,11 @@ set backspace=indent,eol,start
 set ruler
 
 " set NERDTree on open
-set splitbelow"
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
+set splitbelow
+if argc() == 1 && ! isdirectory(argv()[0])
+  autocmd VimEnter * NERDTree
+  autocmd VimEnter * wincmd p
+endif
 
 """"""""""""""""""
 " Menu           "
