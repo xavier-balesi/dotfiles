@@ -1,19 +1,24 @@
 {
-    "diagnostic.refreshOnInsertMode": true,
-    "python.analysis.autoImportCompletions": true,
     "pyright.enable": true,
-    "pyright.completion.snippetSupport": false,
+    "diagnostic.refreshOnInsertMode": false,
+    "pyright.completion.snippetSupport": true,
     "pyright.disableCompletion": false,
     "pyright.completion.importSupport": true,
+    "pyright.disableDiagnostics": true,
+    "pyright.trace.server": "verbose",
     "python.venvPath": "/home/xbalesi/dev/merrybo-poc/.tox/venv",
     "python.pythonPath": "/home/xbalesi/dev/merrybo-poc/.tox/venv/bin/python",
     "python.linting.enabled": true,
-    "python.linting.flake8Enabled": true,
-    "python.linting.flake8Path": "flake8",
+    "python.linting.flake8Enabled": false,
+    "python.linting.flake8Path": "/home/xbalesi/dev/merrybo-poc/.tox/venv/bin/flake8",
     "python.linting.pylintEnabled": true,
-    "python.formatting.provider": "black",
-    "pyright.disableDiagnostics": false,
-
+    "python.linting.pylintPath": "/home/xbalesi/dev/merrybo-poc/.tox/venv/bin/pylint",
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.autoImportCompletions": true,
+    "python.formatting.blackPath": "/home/xbalesi/dev/merrybo-poc/.tox/venv/bin/black",
+    "python.formatting.blackArgs": [
+        "--exclude='\\.git|\\.tox|docs|.eggs'"
+    ],
     "lua.enable": true,
     "Lua.hover.enable": true,
     "coc.preferences.extensionUpdateCheck": "daily",
@@ -25,6 +30,12 @@
         "venv",
         ".projections.json"
     ],
-    "workspace.workspaceFolderCheckCwd": true
-
+    "workspace.workspaceFolderCheckCwd": true,
+    "coc.preferences.messageLevel": "more",
+    "coc.preferences.enableMessageDialog": true,
+    "coc.preferences.enableMarkdown": true,
+    "coc.preferences.formatOnSaveFiletypes": [
+        "json"
+    ],
+    "pydocstring.enableFileAction": true
 }

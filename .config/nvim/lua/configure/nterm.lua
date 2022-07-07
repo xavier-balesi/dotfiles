@@ -2,8 +2,7 @@
 -- [[ github : https://github.com/jlesquembre/nterm.nvim ]]
 -- [[ doc : ?? ]]
 
--- print('start load plugin/nterm.lua')
-
+-- seems great but works only with fish term
 
 local nterm = require('nterm.main').init {
   maps = true,  -- load defaut mappings

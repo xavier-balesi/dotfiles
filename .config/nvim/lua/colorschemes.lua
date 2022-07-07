@@ -11,18 +11,9 @@ opt.syntax = "ON"
 vim.g['gruvbox_material_background'] = 'medium'
 vim.g['gruvbox_material_better_performance'] = 1
 
--- for tokyonight
-vim.g['tokyonight_style'] = 'night' -- storm or night
-vim.g['tokyonight_enable_italic'] = 1
-
--- for edge
-vim.g['edge_style'] = 'neon' -- neon or aura or ?
-vim.g['edge_enable_italic'] = 1
-
-opt.background = 'dark'
+-- opt.background = 'dark'
 opt.termguicolors = true
 
--- cmd('colorscheme gruvbox')
 cmd('colorscheme kanagawa')
 
 -- require('lush')(require('codeschool').setup({

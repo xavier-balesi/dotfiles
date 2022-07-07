@@ -40,17 +40,9 @@ opt.smartcase = true
 opt.incsearch = true
 opt.showmatch = true
 opt.hlsearch = false
+opt.inccommand = 'split'
 
 -- [[ encoding ]]
 opt.encoding = 'utf8'
 opt.fileencoding = 'utf8'
 
--- [[ filetype association ]]
-vim.api.nvim_command([[
-  autocmd BufNewFile,BufRead Jenkinsfile* setf groovy
-]])
-
-
-vim.api.nvim_command([[
-  autocmd BufNewFile,BufRead **/helm/*/templates/*.yaml setf mustache
-]])
