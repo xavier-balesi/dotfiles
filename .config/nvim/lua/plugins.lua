@@ -18,12 +18,6 @@ require('packer').startup({function()
       config = get_config('nvimtree'),
  }
 
-  -- sessions
-  use {
-    'rmagatti/auto-session',
-    as = 'auto-session',
-    config = get_config('auto-session'),
-  }
 
   -- helpers
   use { 'tpope/vim-surround', config = get_config('vim-surround') }
@@ -124,6 +118,21 @@ require('packer').startup({function()
     'nvim-telescope/telescope-dap.nvim',
     config = function() require('telescope').load_extension('dap') end,
     requires = { 'telescope', 'nvim-dap' }
+  }
+
+  -- sessions
+  use {
+    'rmagatti/auto-session',
+    as = 'auto-session',
+    config = get_config('auto-session'),
+  }
+  use {
+    'rmagatti/session-lens',
+    requires = {'rmagatti/auto-session', 'telescope'},
+    config = function()
+      -- require('session-lens').setup({})
+      require("telescope").load_extension("session-lens")
+    end
   }
 
   -- debugging

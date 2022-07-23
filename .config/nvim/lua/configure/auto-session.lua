@@ -1,5 +1,5 @@
 -- [[ plugin auto-session config ]]
--- [[ github: https://github.com/rmagatti/auto-session#command-hooks ]]
+-- [[ github: https://github.com/rmagatti/auto-session ]]
 -- [[ doc: ??? ]]
 --
 -- TODO: close terms
@@ -9,6 +9,7 @@ vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,te
 local function restore_nviw_tree()
   local nvim_tree = require('nvim-tree')
   nvim_tree.change_dir(vim.fn.getcwd())
+  vim.api.nvim_command [[ wincmd w ]]
 end
 
 local function close_nvim_tree()
@@ -16,6 +17,7 @@ local function close_nvim_tree()
   vim.api.nvim_command [[ tabdo NvimTreeClose ]]
   vim.cmd(current_tab .. 'tabnext')
 end
+
 
 require('auto-session').setup {
   auto_session_root_dir = '/home/xbalesi/.config/nvimsessions/',

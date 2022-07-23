@@ -6,6 +6,13 @@ vim.api.nvim_create_autocmd(
   pattern = { "Jenkinsfile*" },
   command = [[ setf groovy ]],
 })
+--
+-- Dockerfile
+vim.api.nvim_create_autocmd(
+  { "BufNewFile", "BufRead" }, {
+  pattern = { "Dockerfile*" },
+  command = [[ setf dockerfile ]],
+})
 
 -- helm templates
 vim.api.nvim_create_autocmd(

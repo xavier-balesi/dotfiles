@@ -13,19 +13,12 @@ vimp.nnoremap('gr', ': Telescope coc references winblend=15<CR>')
 vimp.nnoremap('gef', ': Telescope coc definitions<CR>')
 vimp.nnoremap('ged', ': Telescope coc declarations<CR>')
 
-vimp.nnoremap('gc', ': Telescope coc commands winblend=15<CR>')
+vimp.nnoremap('ggc', ': Telescope coc commands winblend=15<CR>')
 vimp.nnoremap('ga', ': Telescope coc code_actions theme=get_cursor<CR>')
 vimp.nnoremap('gl', ': Telescope coc line_code_actions theme=get_cursor<CR>')
 vimp.nnoremap('gd', ': Telescope coc diagnostics winblend=15<CR>')
 vimp.nnoremap('gw', ': Telescope coc workspace_diagnostics winblend=15<CR>')
 
-
-vimp.nnoremap('ff', ":Telescope find_files prompt_prefix=🔍 winblend=15<cr>")
-vimp.nnoremap('fb', ":Telescope buffers winblend=15<cr>")
-vimp.nnoremap('fg', ":Telescope live_grep theme=get_dropdown winblend=15<cr>")
-vimp.nnoremap('fr', ":Telescope registers theme=get_cursor winblend=15<cr>")
-vimp.nnoremap('fq', ":Telescope quickfix theme=get_ivy winblend=15<cr>")
---
 -- open in preview window
 mp.map('n', 'gpf', ":call CocAction('jumpDefinition', 'pedit')<CR>", opts)
 mp.map('n', 'gpd', ":call CocAction('jumpDeclaration', 'pedit')<CR>", opts)
