@@ -1,0 +1,56 @@
+---
+
+- name: "Clone, make and install Neovim"
+  hosts: localhost
+  connection: local
+  tasks:
+
+  - name: install build dependencies
+    apt:
+      pkg:
+      - libtool
+      - libtool-bin
+      - autoconf
+      - automake
+      - cmake
+      - g++
+      - pkg-config
+    become: true
+
+  - name: set directories variables
+    set_fact:
+      sources_directory: "{{ ansible_env.HOME }}/Apps/sources"
+      install_directory: "{{ ansible_env.HOME }}/Apps/nvim"
+      local_bin_directory: "{{ ansible_env.HOME }}/.local/bin"
+
+  - name: create Neovim destination dir
+    file:
+      path: "{{ item }}"
+      state: directory
+    loop:
+      - "{{ sources_directory }}"
+      - "{{ local_bin_directory }}"
+
+  - name: clone Neovim sources
+    git:
+      repo: https://github.com/neovim/neovim.git
+      dest: "{{ sources_directory }}/neovim"
+      version: nightly
+      update: yes
+
+  - name: configure Neovim build
+    shell:
+      chdir: "{{ sources_directory }}/neovim"
+      cmd: make CMAKE_BUILD_TYPE=Release -j 4
+
+  - name: install Neovim
+    shell:
+      chdir: "{{ sources_directory }}/neovim"
+      cmd: "make CMAKE_INSTALL_PREFIX={{ install_directory }} install"
+        
+  - name: create neovim symlink
+    file:
+      src: "{{ install_directory }}/bin/nvim"
+      dest: "{{ local_bin_directory }}/nvim"
+      state: link
+    
