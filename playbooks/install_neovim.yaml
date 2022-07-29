@@ -15,6 +15,7 @@
       - cmake
       - g++
       - pkg-config
+      - ripgrep
     become: true
 
   - name: set directories variables
@@ -22,6 +23,7 @@
       sources_directory: "{{ ansible_env.HOME }}/Apps/sources"
       install_directory: "{{ ansible_env.HOME }}/Apps/nvim"
       local_bin_directory: "{{ ansible_env.HOME }}/.local/bin"
+      config_directory: "{{ ansible_env.HOME }}/.config"
 
   - name: create Neovim destination dir
     file:
@@ -35,8 +37,9 @@
     git:
       repo: https://github.com/neovim/neovim.git
       dest: "{{ sources_directory }}/neovim"
-      version: nightly
+      version: stable
       update: yes
+      force: yes
 
   - name: configure Neovim build
     shell:
@@ -47,10 +50,38 @@
     shell:
       chdir: "{{ sources_directory }}/neovim"
       cmd: "make CMAKE_INSTALL_PREFIX={{ install_directory }} install"
-        
+
   - name: create neovim symlink
     file:
       src: "{{ install_directory }}/bin/nvim"
       dest: "{{ local_bin_directory }}/nvim"
       state: link
-    
+
+  - name: install nvim config
+    copy:
+      src: "{{ playbook_dir }}/../.config/nvim"
+      dest: "{{ config_directory }}"
+
+  - name: create temp directory for NVM install
+    tempfile:
+      prefix: nvim_nvm_
+      state: directory
+    register: nvm_install_tmp
+
+  - name: download install script nvm (for coc nvim plugin)
+    get_url:
+      url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh
+      dest: "{{ nvm_install_tmp.path }}/install.sh"
+      mode: 0755
+
+  - name: install nvm
+    shell:
+      executable: /bin/bash
+      chdir: "{{ nvm_install_tmp.path }}"
+      cmd: ./install.sh
+
+  - name: set node version
+    shell:
+      executable: /bin/bash
+      cmd: "source {{ ansible_env.HOME }}/.nvm/nvm.sh; nvm install 17.6.0"
+
