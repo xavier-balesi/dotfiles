@@ -1,0 +1,48 @@
+---
+
+- name: install lazygit
+  hosts: localhost
+  connection: local
+
+  tasks:
+
+
+  - name: set base variables
+    set_fact:
+      local_bin_directory: "{{ ansible_env.HOME }}/.local/bin"
+      lazygit_local_directory: "{{ ansible_env.HOME }}/Apps/lazygit"
+      lazygit_version: 0.35
+      lazygit_architecture: armv6
+
+  - name: set secondary variables
+    set_fact:
+      lazygit_archive: "lazygit_{{ lazygit_version }}_Linux_{{ lazygit_architecture }}.tar.gz"
+
+  - name: create lazygit app directory
+    file:
+      path: "{{ lazygit_local_directory }}"
+      state: directory
+
+  - name: get archive from internet
+    get_url:
+      url: https://github.com/jesseduffield/lazygit/releases/download/v{{ lazygit_version }}/{{ lazygit_archive }}
+      dest: "{{ lazygit_local_directory }}/{{ lazygit_archive }}"
+
+  - name: unarchive
+    unarchive:
+      src: "{{ lazygit_local_directory }}/{{ lazygit_archive }}"
+      dest: "{{ lazygit_local_directory }}"
+
+  - name: symlink lazygit
+    file:
+      src: "{{ lazygit_local_directory }}/lazygit"
+      dest: "{{ local_bin_directory }}/lazygit"
+      state: link
+
+  - name: remove archive
+    file:
+      path: "{{ lazygit_local_directory }}/{{ lazygit_archive }}"
+      state: absent
+
+
+
