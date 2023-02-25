@@ -3,6 +3,7 @@
 -- [[ doc: help nvim-tree ]]
 
 require('nvim-tree').setup ({
+  update_cwd = true,
   filters = {
     custom = {
       '^__pycache__$',

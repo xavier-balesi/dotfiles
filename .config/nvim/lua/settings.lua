@@ -24,8 +24,9 @@ opt.splitright = true
 opt.splitbelow = true
 
 -- [[ completion ]]
-opt.wildmode = { 'full' }
+opt.wildmode = { 'full'}
 opt.wildoptions = 'tagfile'
+-- opt.wildoptions = 'pum'
 
 -- [[ whitespace/indentation ]]
 opt.tabstop = 4

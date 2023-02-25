@@ -20,10 +20,10 @@ end
 
 
 require('auto-session').setup {
-  auto_session_root_dir = os.getenv('HOME') .. '/.config/nvimsessions/',
+  auto_session_root_dir = '/home/xbalesi/.config/nvimsessions/',
   log_level = 'info',
   auto_session_suppress_dirs = { '~/', '~/tmp', '~/dev' },
   pre_save_cmds = { close_nvim_tree },
-  post_restore_cmds = { 'NvimTreeToggle',  restore_nviw_tree },
+  -- post_restore_cmds = { 'NvimTreeToggle',  restore_nviw_tree },
 }
 
