@@ -20,7 +20,13 @@ require('packer').startup({
     }
 
     -- helpers
-    use { 'tpope/vim-surround', config = get_config('vim-surround') }
+    -- use { 'tpope/vim-surround', config = get_config('vim-surround') } --
+    -- prefere nvim surround over vim-surround
+    use({
+      "kylechui/nvim-surround",
+      tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+      config = get_config('nvim-surround'),
+    })
     use { 'Raimondi/delimitMate' }
     use { 'svermeulen/vimpeccable' }
     use { 'Asheq/close-buffers.vim' }
@@ -30,11 +36,11 @@ require('packer').startup({
     }
     use { 'nvim-lua/plenary.nvim' }
     use { 'diepm/vim-rest-console', config = get_config('vim-rest-console') }
-    use {
-      "LintaoAmons/scratch.nvim",
-      -- tag = "v0.3.2" -- use tag for stability, or without this to have latest fixed and functions
-      config = get_config('scratch'),
-    }
+    -- -- use {
+    --   "LintaoAmons/scratch.nvim",
+    --   -- tag = "v0.3.2" -- use tag for stability, or without this to have latest fixed and functions
+    --   config = get_config('scratch'),
+    -- }
     use { 'stevearc/dressing.nvim', config = get_config('dressing') }
     use {
       "ThePrimeagen/refactoring.nvim",
@@ -56,18 +62,18 @@ require('packer').startup({
     -- use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
     use { 'hrsh7th/nvim-cmp', as = 'cmp', config = get_config('nvim-cmp') }
     -- use { "MunifTanjim/nui.nvim" }
-    -- use {
-    --   "jcdickinson/codeium.nvim",
-    --   requires = {
-    --     "nvim-lua/plenary.nvim",
-    --     "MunifTanjim/nui.nvim",
-    --     "cmp",
-    --   },
-    --   config = function()
-    --     require("codeium").setup({
-    --     })
-    --   end
-    -- }
+    use {
+      "jcdickinson/codeium.nvim",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "MunifTanjim/nui.nvim",
+        "cmp",
+      },
+      config = function()
+        require("codeium").setup({
+        })
+      end
+    }
 
 
     -- Neorg
@@ -83,11 +89,14 @@ require('packer').startup({
       config = get_config('lualine'),
       requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     }
+    -- use { 'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons' }
+    use { "tiagovla/scope.nvim", config = function() require('scope').setup() end }
     use {
       'kdheepak/tabline.nvim',
       config = get_config('tabline'),
       requires = { 'hoob3rt/lualine.nvim', 'kyazdani42/nvim-web-devicons' }
     }
+    use 'nanozuki/tabby.nvim'
     use { 'rcarriga/nvim-notify', config = function() vim.notify = require('notify') end }
     -- use { "Pocco81/true-zen.nvim" }
     use { "lukas-reineke/indent-blankline.nvim", config = get_config('indent-blankline') }
@@ -101,6 +110,16 @@ require('packer').startup({
       config = get_config('nvim-ufo'),
       requires = 'kevinhwang91/promise-async',
     }
+    -- buggy but cool
+    -- use { 'sunjon/shade.nvim', config = require('shade').setup({
+    --   overlay_opacity = 50,
+    --   opacity_step = 1,
+    --   keys = {
+    --     brightness_up   = '<C-Up>',
+    --     brightness_down = '<C-Down>',
+    --     toggle          = '<Leader>s',
+    --   }
+    -- }) }
 
 
     -- ColorSchemes
@@ -155,11 +174,19 @@ require('packer').startup({
       end
     }
     use { "lukas-reineke/lsp-format.nvim" }
+    use({
+      "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+      config = function()
+        require("lsp_lines").setup()
+      end,
+    })
     use {
       'https://github.com/jose-elias-alvarez/null-ls.nvim',
       config = get_config('null-ls')
     }
-    use { 'stevearc/aerial.nvim', config = get_config('aerial') }
+    use { 'stevearc/aerial.nvim',
+      requires = "kyazdani42/nvim-web-devicons",
+      config = get_config('aerial') }
     use {
       'rmagatti/goto-preview',
       config = get_config("goto-preview")
@@ -240,13 +267,14 @@ require('packer').startup({
       setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
       ft = { "markdown" },
     })
-    use {
-      'lewis6991/spellsitter.nvim',
-      requires = "nvim-treesitter/nvim-treesitter",
-      config = function()
-        require('spellsitter').setup()
-      end
-    }
+    -- disabled because it causes fails
+    -- use {
+    --   'lewis6991/spellsitter.nvim',
+    --   requires = "nvim-treesitter/nvim-treesitter",
+    --   config = function()
+    --     require('spellsitter').setup()
+    --   end
+    -- }
     use { -- pytrize {{{
       'AckslD/nvim-pytrize.lua',
       -- uncomment if you want to lazy load
@@ -271,17 +299,17 @@ require('packer').startup({
     }
     -- use { 'nvim-telescope/telescope-ui-select.nvim' }
     -- use({
-    --     "jackMort/ChatGPT.nvim",
-    --     config = function()
-    --       require("chatgpt").setup({
-    --           -- optional configuration
-    --       })
-    --     end,
-    --     requires = {
-    --         "MunifTanjim/nui.nvim",
-    --         "nvim-lua/plenary.nvim",
-    --         "nvim-telescope/telescope.nvim"
-    --     }
+    --   "jackMort/ChatGPT.nvim",
+    --   config = function()
+    --     require("chatgpt").setup({
+    --       -- optional configuration
+    --     })
+    --   end,
+    --   requires = {
+    --     "MunifTanjim/nui.nvim",
+    --     "nvim-lua/plenary.nvim",
+    --     "nvim-telescope/telescope.nvim"
+    --   }
     -- })
 
     -- sessions
@@ -330,6 +358,7 @@ require('packer').startup({
 
     -- FUn !
     use { 'eandrju/cellular-automaton.nvim' }
+    use { 'seandewar/killersheep.nvim' }
   end,
   config = {
     display = {

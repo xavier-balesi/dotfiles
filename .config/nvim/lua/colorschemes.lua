@@ -16,48 +16,15 @@ vim.g['gruvbox_material_foreground'] = 'mix'
 vim.g['gruvbox_material_diagnostic_virtual_text'] = 'colored'
 
 vim.g['gruvbox_material_spell_foreground'] = 'colored'
--- vim.g['gruvbox_material_enable_bold'] = 1
 vim.g['gruvbox_material_better_performance'] = 1
 
 opt.background = 'dark'
 opt.termguicolors = true
 
+cmd('set background=dark')
 
-
--- cmd('colorscheme kanagawa')
--- cmd('colorscheme palenightfall')
--- cmd('colorscheme nordic')
 cmd('colorscheme melange')
--- cmd('colorscheme gruvbox')
--- cmd('colorscheme gruvbox-material')
 
--- require('lush')(require('codeschool').setup({
---   plugins = {
---     "coc",
---     "cmp", -- nvim-cmp
---     "fzf",
---     "gitgutter",
---     "gitsigns",
---     "nerdtree",
---     "netrw",
---     "packer",
---     "telescope",
---     "treesitter"
---   },
---   langs = {
---     "c",
---     "css",
---     "html",
---     "java",
---     "js",
---     "json",
---     "lua",
---     "markdown",
---     "python",
---     "scala",
---     "typescript",
---     "viml",
---     "xml"
---   }
--- }))
-
+-- override Visual colors
+-- cmd('highlight Visual guifg=#ECE1D7 guibg=#867462')
+cmd('highlight Visual guifg=#e7d8cb guibg=#594d40')

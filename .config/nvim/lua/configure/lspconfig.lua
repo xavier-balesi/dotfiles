@@ -6,23 +6,23 @@ local mason_lspconfig = require('mason-lspconfig')
 mason.setup({})
 mason_lspconfig.setup({})
 mason_lspconfig.setup_handlers {
-    function(server_name)
-      lspconfig[server_name].setup({})
-    end
+  function(server_name)
+    lspconfig[server_name].setup({})
+  end
 }
 
 lspconfig.efm.setup {
-    init_options = { documentFormatting = true },
-    filetypes = { 'python' },
-    settings = {
-        rootMarkers = { '.git/' },
-        languages = {
-            python = {
-                -- { formatCommand = "isort --profile black --quiet -", formatStdin = true },
-                -- { formatCommand = "black --quiet -", formatStdin = true },
-            }
-        }
+  init_options = { documentFormatting = true },
+  filetypes = { 'python' },
+  settings = {
+    rootMarkers = { '.git/' },
+    languages = {
+      python = {
+        -- { formatCommand = "isort --profile black --quiet -", formatStdin = true },
+        -- { formatCommand = "black --quiet -", formatStdin = true },
+      }
     }
+  }
 }
 
 require 'lspconfig'.pyright.setup {}
@@ -33,17 +33,19 @@ require 'lspconfig'.gopls.setup {}
 -- require'lspconfig'.pylsp.setup{}
 
 vim.diagnostic.config({
-    virtual_text = {
-        -- source = "always",  -- Or "if_many"
-        prefix = '●', -- Could be '■', '▎', 'x'
-    },
-    severity_sort = true,
-    float = {
-        show_header = false,
-        source = "always", -- Or "if_many"
-        -- border = 'shadow',
-        -- anchor = 'SE',
-    },
+  virtual_lines = false,
+  -- virtual_text = false,
+  virtual_text = {
+    -- source = "always",  -- Or "if_many"
+    prefix = '●', -- Could be '■', '▎', 'x'
+  },
+  severity_sort = true,
+  float = {
+    show_header = false,
+    source = "always", -- Or "if_many"
+    -- border = 'shadow',
+    -- anchor = 'SE',
+  },
 })
 
 -- lspconfig.sumneko_lua.setup {
@@ -100,18 +102,18 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 
 local au_id = vim.api.nvim_create_augroup('OpenDiagFloat', { clear = true })
 vim.api.nvim_create_autocmd(
-    { 'CursorHold' },
-    {
-        pattern = { "*.py" },
-        callback = vim.diagnostic.open_float,
-        group = au_id,
-    }
+  { 'CursorHold' },
+  {
+    pattern = { "*.py" },
+    callback = vim.diagnostic.open_float,
+    group = au_id,
+  }
 )
 
 local function lspSymbol(name, icon)
   vim.fn.sign_define(
-      'DiagnosticSign' .. name,
-      { text = icon, numhl = 'DiagnosticDefault' .. name }
+    'DiagnosticSign' .. name,
+    { text = icon, numhl = 'DiagnosticDefault' .. name }
   )
 end
 
@@ -126,16 +128,16 @@ lspSymbol('Warning', '🔔')
 local border = "rounded"
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-        vim.lsp.handlers.hover, {
-        border = border,
-    })
+  vim.lsp.handlers.hover, {
+    border = border,
+  })
 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-        vim.lsp.handlers.signature_help, {
-        border = border
-    }
-    )
+  vim.lsp.handlers.signature_help, {
+    border = border
+  }
+)
 
 vim.diagnostic.config {
-    float = { border = border }
+  float = { border = border }
 }

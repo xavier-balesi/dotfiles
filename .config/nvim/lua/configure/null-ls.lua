@@ -29,11 +29,13 @@ local sources = {
   -- null_ls.builtins.formatting.lua_format,
   -- null_ls.builtins.formatting.mdformat,
   null_ls.builtins.formatting.markdownlint,
+  null_ls.builtins.diagnostics.yamllint.with {
+    args = { "-d", '{rules: {key-ordering: disable}}', "--format", "parsable", "-" }
+  },
   null_ls.builtins.formatting.pg_format,
   null_ls.builtins.formatting.prettier.with({
     -- requires : https://prettier.io/docs/en/install.html
     filetypes = { 'markdown' }
-
   }),
   -- refactoring
   -- require "ThePrimeagen/refactoring.nvim"
@@ -44,9 +46,9 @@ null_ls.setup({ sources = sources })
 local au_id = vim.api.nvim_create_augroup('save-reformat', { clear = true })
 vim.api.nvim_create_autocmd(
   { 'BufWritePre' }, {
-  pattern = { '*.py', '*.md', '*.lua', '*.go', '*.sql' },
-  command = [[ :lua vim.lsp.buf.format() ]],
-  -- command = [[ call CocAction('runCommand', 'editor.action.formatDocument') ]],
-  group = au_id,
-}
+    pattern = { '*.py', '*.md', '*.lua', '*.go', '*.sql' },
+    command = [[ :lua vim.lsp.buf.format() ]],
+    -- command = [[ call CocAction('runCommand', 'editor.action.formatDocument') ]],
+    group = au_id,
+  }
 )
