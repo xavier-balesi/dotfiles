@@ -17,6 +17,12 @@
         export PATH=$PATH:${HOME}/.local/bin
       marker: "# {mark} ANSIBLE MANAGED BLOCK"
 
+  - name: add color_prompt in bashrc for kitty
+    lineinfile:
+      path: ~/.bashrc
+      regexp: '^\s*xterm-color\|.*\).*color_prompt=yes;;'
+      line: '    xterm-color|xterm-kitty|*-256color|screen) color_prompt=yes;;'
+
   - name: copy kitty config
     synchronize:
       src: "{{ playbook_dir }}/../.config/kitty"
