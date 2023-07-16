@@ -16,3 +16,13 @@
       block: |
         export PATH=$PATH:${HOME}/.local/bin
       marker: "# {mark} ANSIBLE MANAGED BLOCK"
+
+  - name: copy kitty config
+    synchronize:
+      src: "{{ playbook_dir }}/../.config/kitty"
+      dest: ~/.config
+
+  - name: copy gitconfig
+    copy:
+      src: "{{ playbook_dir }}/../.gitconfig"
+      dest: ~/.gitconfig
