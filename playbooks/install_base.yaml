@@ -1,0 +1,35 @@
+---
+
+- name: "install base packages"
+  hosts: localhost
+  connection: local
+  tasks:
+
+  - name: install build dependencies
+    apt:
+      pkg:
+      - libtool
+      - libtool-bin
+      - autoconf
+      - automake
+      - cmake
+      - g++
+      - pkg-config
+    become: true
+
+  - name: install base tools
+    apt:
+      pkg:
+      - htop
+      - ripgrep
+      - lm-sensors
+      - gnome-tweaks
+      - flameshot
+    become: true
+
+  - name: install social networks
+    snap:
+      name:
+      - discord
+    become: true
+
