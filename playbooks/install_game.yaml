@@ -1,0 +1,17 @@
+---
+
+- name: "install game apps and deps"
+  hosts: localhost
+  connection: local
+  tasks:
+
+  - name: install lib deps
+    apt:
+      pkg:
+      - libfuse2
+    become: true
+  - name: install steam and dependencies
+    apt:
+      pkg:
+      - steam
+    become: true
