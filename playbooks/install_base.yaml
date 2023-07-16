@@ -32,3 +32,9 @@
       name:
       - discord
     become: true
+
+  - name: install gpu packages
+    apt:
+      pkg:
+      - mesa-utils
+    become: true
