@@ -4,6 +4,7 @@
 
 require('dressing').setup({
   input = {
+    backend = { 'nui' },
     prefer_width = 0.4,
     relative = 'editor',
   },

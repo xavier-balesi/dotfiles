@@ -25,6 +25,9 @@ local sources = {
   -- golang
   null_ls.builtins.formatting.gofmt,
 
+  -- rust
+  null_ls.builtins.formatting.rustfmt,
+
   -- lua
   -- null_ls.builtins.formatting.lua_format,
   -- null_ls.builtins.formatting.mdformat,
@@ -46,7 +49,7 @@ null_ls.setup({ sources = sources })
 local au_id = vim.api.nvim_create_augroup('save-reformat', { clear = true })
 vim.api.nvim_create_autocmd(
   { 'BufWritePre' }, {
-    pattern = { '*.py', '*.md', '*.lua', '*.go', '*.sql' },
+    pattern = { '*.py', '*.md', '*.lua', '*.go', '*.sql', '*.rs' },
     command = [[ :lua vim.lsp.buf.format() ]],
     -- command = [[ call CocAction('runCommand', 'editor.action.formatDocument') ]],
     group = au_id,

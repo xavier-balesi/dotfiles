@@ -28,3 +28,5 @@ cmd('colorscheme melange')
 -- override Visual colors
 -- cmd('highlight Visual guifg=#ECE1D7 guibg=#867462')
 cmd('highlight Visual guifg=#e7d8cb guibg=#594d40')
+cmd('highlight Folded guifg=#e7d8cb guibg=#423930')
+-- cmd('highlight Folded guifg=#f7f2ee guibg=#4a4036')

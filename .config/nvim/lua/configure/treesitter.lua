@@ -3,58 +3,58 @@
 -- [[ doc: help treesitter ]]
 
 require('nvim-treesitter.configs').setup {
-  tree_docs = true,
-  ensure_installed = { 'dockerfile', 'bash', 'markdown_inline', 'markdown', 'python', 'lua', 'http', 'json', 'regex',
-    'rst', 'yaml', 'gotmpl' },
-  sync_install = false,
-  auto_install = true,
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = true,
-  },
-  autopairs = {
-    enable = true,
-  },
-  rainbow = {
-    enable = true,
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ["aa"] = "@parameter.outer",
-        ["ia"] = "@parameter.inner",
-      },
+    tree_docs = true,
+    ensure_installed = { 'dockerfile', 'bash', 'markdown_inline', 'markdown', 'python', 'lua', 'http', 'json', 'regex',
+        'rst', 'yaml', 'gotmpl' },
+    sync_install = false,
+    auto_install = true,
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = true,
     },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        ["]a"] = "@parameter.outer",
-      },
-      goto_next_end = {
-        ["]A"] = "@parameter.outer",
-      },
-      goto_previous_start = {
-        ["[a"] = "@parameter.outer",
-      },
-      goto_previous_end = {
-        ["[A"] = "@parameter.outer",
-      },
+    autopairs = {
+        enable = true,
     },
-  },
+    rainbow = {
+        enable = true,
+    },
+    textobjects = {
+        select = {
+            enable = true,
+            lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+            keymaps = {
+                -- You can use the capture groups defined in textobjects.scm
+                ["aa"] = "@parameter.outer",
+                ["ia"] = "@parameter.inner",
+            },
+        },
+        move = {
+            enable = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
+            goto_next_start = {
+                ["]a"] = "@parameter.outer",
+            },
+            goto_next_end = {
+                ["]A"] = "@parameter.outer",
+            },
+            goto_previous_start = {
+                ["[a"] = "@parameter.outer",
+            },
+            goto_previous_end = {
+                ["[A"] = "@parameter.outer",
+            },
+        },
+    },
 }
 
 local parser_config = require 'nvim-treesitter.parsers'.get_parser_configs()
 parser_config.gotmpl = {
-  install_info = {
-    url = "https://github.com/ngalaiko/tree-sitter-go-template",
-    files = { "src/parser.c" }
-  },
-  filetype = "gotmpl",
-  used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml" }
+    install_info = {
+        url = "https://github.com/ngalaiko/tree-sitter-go-template",
+        files = { "src/parser.c" }
+    },
+    filetype = "gotmpl",
+    used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml" }
 }
 
 -- global foldmethod based on treesitter expr
