@@ -2,10 +2,14 @@
 -- [[ github: https://github.com/stevearc/aerial.nvim ]]
 -- [[ doc: help aerial ]]
 
-require('aerial').setup({
-  close_behavior = 'close',
-  default_direction = 'float',
-  max_width = { 40, 0.35 },
+local aerial = require('aerial')
+
+aerial.setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  layout = {
+    default_direction = 'float',
+  },
+  lazy_load = false,
   float = {
     relative = "win",
     override = function(conf)
@@ -17,37 +21,40 @@ require('aerial').setup({
     end,
   },
   on_attach = function(bufnr)
-    -- Toggle the aerial window with <leader>a
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>a', '<cmd>AerialCloseAllButCurrent<CR><cmd>AerialOpen<CR>', {})
     -- Jump forwards/backwards with '{' and '}'
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '(', '<cmd>AerialPrev<CR>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', ')', '<cmd>AerialNext<CR>', {})
-    -- Jump up the tree with '[[' or ']]'
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[[', '<cmd>AerialPrevUp<CR>', {})
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']]', '<cmd>AerialNextUp<CR>', {})
+    vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
+    vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
   end
 })
+-- You probably also want to set a keymap to toggle aerial
+function toggle_aerial(focus)
+  function _toggle_aerial()
+    if aerial.is_open() then
+      aerial.close()
+    else
+      aerial.open({ focus = false })
+      if focus then
+        aerial.focus()
+      end
+    end
+  end
 
--- set for pyright
-require("lspconfig").pyright.setup{
-  on_attach = require("aerial").on_attach,
-}
+  return _toggle_aerial
+end
+
+vim.keymap.set('n', '<leader>aa', toggle_aerial(false))
+vim.keymap.set('n', '<leader>af', aerial.focus)
+vim.keymap.set('n', '<leader>ac', aerial.close)
 
 -- telescope extension
 require('telescope').load_extension('aerial')
 
-vim.g["aerial_is_enabled"] = 1
-
--- set custom commands for floating aerial
-vim.api.nvim_exec(
-[[
-  command AerialCustomOpen if (g:aerial_is_enabled == 1) | AerialOpen!
-  command DisableAerial let g:aerial_is_enabled=0 | AerialCloseAll
-  command EnableAerial let g:aerial_is_enabled=1 | AerialOpen! float
-]], false)
+vim.g["aerial_is_enabled"] = 0
 
 vim.api.nvim_exec(
-[[
-    au! WinEnter *.py AerialCloseAll
-    au WinEnter *.py AerialCustomOpen
-]], false)
+  [[
+  command! AerialCustomOpen lua if vim.g['aerial_is_enabled'] == 1 then require'aerial'.open({focus=false}) end
+  command! DisableAerial lua vim.g['aerial_is_enabled'] = 0
+  command! EnableAerial lua vim.g['aerial_is_enabled'] = 1
+]]
+  , false)

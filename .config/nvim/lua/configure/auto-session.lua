@@ -24,6 +24,6 @@ require('auto-session').setup {
   log_level = 'info',
   auto_session_suppress_dirs = { '~/', '~/tmp', '~/dev' },
   pre_save_cmds = { close_nvim_tree },
-  post_restore_cmds = { 'NvimTreeToggle',  restore_nviw_tree },
+  -- post_restore_cmds = { 'NvimTreeToggle',  restore_nviw_tree },
 }
 

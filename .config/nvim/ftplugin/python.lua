@@ -1,27 +1,11 @@
 
-vim.opt.foldenable = false
-vim.opt.foldmethod = 'indent'
+-- use treesitter expr istead
+-- vim.opt.foldenable = false
+-- vim.opt.foldmethod = 'indent'
 
 vim.g.python_highlight_all = 1
 
 
-local au_id = vim.api.nvim_create_augroup('python-reformat', { clear = true })
--- auto sort imports
-vim.api.nvim_create_autocmd(
-  { 'BufWritePre' }, {
-    pattern = { '*.py' },
-    command = [[ call CocAction('runCommand', 'python.sortImports') ]],
-    group = au_id,
-  }
-)
--- auto reformat
-vim.api.nvim_create_autocmd(
-  { 'BufWritePre' }, {
-    pattern = { '*.py' },
-    command = [[ call CocAction('runCommand', 'editor.action.formatDocument') ]],
-    group = au_id,
-  }
-)
 
 -- set debugger DAP
 local dap = require('dap')
