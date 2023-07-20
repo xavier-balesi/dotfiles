@@ -3,7 +3,7 @@
 -- [[ doc: help  ]]
 
 require("scratch").setup {
-	scratch_file_dir = "/home/xbalesi/doc/notes",  -- Where the scratch files will be saved
+	scratch_file_dir = os.getenv('HOME') .. "/doc/notes",  -- Where the scratch files will be saved
 	filetypes = { "json", "xml",  "lua",  "py", "sh", "md" },   -- filetypes to select from
 }
 vim.keymap.set("n", "<C-Q>m", function() require("scratch").scratchWithName() end)
