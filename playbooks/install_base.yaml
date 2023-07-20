@@ -38,3 +38,20 @@
       pkg:
       - mesa-utils
     become: true
+
+  - name: install funny stuffs
+    apt:
+      pkg:
+      - cool-retro-term
+    become: true
+
+  - name: install ricing tools
+    apt:
+      pkg:
+      - bspwm
+      - polybar
+      - rofi
+      - lightdm
+      - sxhkd
+      - picom
+    become: true
