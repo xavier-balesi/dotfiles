@@ -14,6 +14,7 @@
       - automake
       - cmake
       - g++
+      - python3-venv
       - pkg-config
     become: true
 
