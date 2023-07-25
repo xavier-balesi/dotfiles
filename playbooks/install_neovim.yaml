@@ -83,3 +83,18 @@
       - tree-sitter
       extra_args: '--upgrade'
 
+  - name: install getnf (get nerd font)
+    git:
+      repo: https://github.com/ronniedroid/getnf.git
+      dest: ~/Apps/getnf
+
+  - name: install getnf
+    command:
+      chdir: ~/Apps/getnf
+      cmd: ./install.sh
+      creates: ~/.local/bin/getnf
+
+  - name: install merd fonts
+    shell: echo 31 | getnf
+
+
