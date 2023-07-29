@@ -86,6 +86,7 @@
       - tree-sitter
       extra_args: '--upgrade'
 
+  # fixme npm not yet available as it's just in PATH from the previous task
   - name: npm install tree-sitter
     npm:
       name: tree-sitter
