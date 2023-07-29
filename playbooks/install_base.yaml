@@ -74,3 +74,14 @@
       - pulsemixer
       - playerctl
     become: true
+
+  - name: install rofi-bluetooth
+    git:
+      repo: https://github.com/nickclyde/rofi-bluetooth.git
+      dest: "{{ apps_directory }}/rofi-bluetooth"
+
+  - name: link rofi-bluetooth in local/bin
+    file:
+      src: "{{ apps_directory }}/rofi-bluetooth/rofi-bluetooth"
+      dest: ~/.local/bin/rofi-bluetooth
+      state: link
