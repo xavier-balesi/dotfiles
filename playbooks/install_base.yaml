@@ -1,0 +1,91 @@
+---
+
+- name: "install base packages"
+  hosts: localhost
+  connection: local
+  tasks:
+
+  - name: set variables
+    set_fact:
+      apps_directory: ~/Apps
+      local_bin_directory: ~/.local/bin
+
+  - name: create directories
+    file:
+      path: "{{ item }}"
+      state: directory
+    loop:
+    - "{{ apps_directory }}"
+    - "{{ local_bin_directory }}"
+
+  - name: install build dependencies
+    apt:
+      pkg:
+      - libtool
+      - libtool-bin
+      - autoconf
+      - automake
+      - cmake
+      - g++
+      - python3-venv
+      - pkg-config
+    become: true
+
+  - name: install base tools
+    apt:
+      pkg:
+      - htop
+      - ripgrep
+      - lm-sensors
+      - gnome-tweaks
+      - flameshot
+      - xclip
+      - net-tools
+      - gpick
+    become: true
+
+  - name: install social networks
+    snap:
+      name:
+      - discord
+    become: true
+
+  - name: install gpu packages
+    apt:
+      pkg:
+      - mesa-utils
+    become: true
+
+  - name: install funny stuffs
+    apt:
+      pkg:
+      - cool-retro-term
+    become: true
+
+  - name: install ricing tools
+    apt:
+      pkg:
+      - bspwm
+      - polybar
+      - rofi
+      - lightdm
+      - sxhkd
+      - picom
+      - dunst
+      - feh
+      - blueman
+      - brightnessctl
+      - pulsemixer
+      - playerctl
+    become: true
+
+  - name: install rofi-bluetooth
+    git:
+      repo: https://github.com/nickclyde/rofi-bluetooth.git
+      dest: "{{ apps_directory }}/rofi-bluetooth"
+
+  - name: link rofi-bluetooth in local/bin
+    file:
+      src: "{{ apps_directory }}/rofi-bluetooth/rofi-bluetooth"
+      dest: ~/.local/bin/rofi-bluetooth
+      state: link

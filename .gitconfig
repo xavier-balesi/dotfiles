@@ -1,0 +1,35 @@
+[user]
+	name = Xavier BALESI
+	email = xavier.balesi@linxo.com
+[core]
+	editor = vim --noplugin
+[merge]
+    tool = nvimdiff
+[mergetool "nvimdiff"]
+    cmd = nvim -d \"$LOCAL\" \"$MERGED\" \"$BASE\" \"$REMOTE\" -c \"wincmd w\" -c \"wincmd J\"
+[mergetool]
+    ; to remove *.orig backup files
+    keepBackup = false
+[diff]
+    tool = nvimdiff
+[difftool "nvimdiff"]
+    cmd = nvim -d \"$LOCAL\" \"$REMOTE\" -c \"wincmd w\" -c \"wincmd L\"
+[alias]
+    b = branch
+    c = commit
+    cm = commit -m
+    p = push
+    pf = push -f
+    s = status
+    lo = log --oneline
+    ll = "!_() { test $# -gt 0 && { export n=$1; shift 1; }; [ ! -z ${n} ] && { git lo -n ${n} $@; } || { git lo $@; };}; _"
+    rbo = "!git rebase origin/$1"
+    st = status -sb
+    dv = difftool -t nvimdiff -y
+    mt = mergetool
+    rebac = rebase --continue
+    lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+    lg = !"git lg1"
+    ; lg = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    cob = checkout -b

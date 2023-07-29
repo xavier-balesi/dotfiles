@@ -1,0 +1,31 @@
+---
+
+- name: "setup base configuration"
+  hosts: localhost
+  connection: local
+  tasks:
+
+  - name: set ~/.local/bin in PATH
+    blockinfile:
+      path: ~/.bashrc
+      block: |
+        export PATH=$PATH:${HOME}/.local/bin
+        setxkbmap -option caps:swapescape
+        setxkbmap -option compose:ralt
+      marker: "# {mark} ANSIBLE MANAGED BLOCK"
+
+  - name: add color_prompt in bashrc for kitty
+    lineinfile:
+      path: ~/.bashrc
+      regexp: '^\s*xterm-color\|.*\).*color_prompt=yes;;'
+      line: '    xterm-color|xterm-kitty|*-256color|screen) color_prompt=yes;;'
+
+  - name: copy kitty config
+    synchronize:
+      src: "{{ playbook_dir }}/../.config/kitty"
+      dest: ~/.config
+
+  - name: copy gitconfig
+    copy:
+      src: "{{ playbook_dir }}/../.gitconfig"
+      dest: ~/.gitconfig

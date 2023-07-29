@@ -1,0 +1,17 @@
+---
+
+- name: "setup user"
+  hosts: localhost
+  connection: local
+  tasks:
+
+  - name: set default user
+    set_fact:
+      current_user: xavier
+
+  - name: add user '{{ current_user }}' to group video
+    user:
+      name: "{{ current_user }}"
+      groups: video,input
+      append: true
+    become: true
