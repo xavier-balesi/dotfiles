@@ -40,3 +40,10 @@
     copy:
       src: "{{ playbook_dir }}/../.gitconfig"
       dest: ~/.gitconfig
+
+  - name: copy share directory
+    synchronize:
+      src: "{{ playbook_dir }}/../share/{{ item }}"
+      dest: ~/.local/share
+    loop:
+    - wallpapers

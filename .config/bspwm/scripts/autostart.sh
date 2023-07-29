@@ -15,4 +15,4 @@ dunst &
 
 MONITOR=HDMI-1-0 polybar example &
 
-feh --bg-scale ~/Téléchargements/wp3138019-blame-wallpapers.jpg
+feh --bg-scale ~/.local/share/wallpapers/blame3.jpg
