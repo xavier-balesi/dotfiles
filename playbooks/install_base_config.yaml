@@ -25,6 +25,17 @@
       src: "{{ playbook_dir }}/../.config/kitty"
       dest: ~/.config
 
+  - name: copy ricing config
+    synchronize:
+      src: "{{ playbook_dir }}/../.config/{{ item }}"
+      dest: ~/.config
+    loop:
+    - bspwm
+    - picom
+    - polybar
+    - rofi
+    - sxhkd
+
   - name: copy gitconfig
     copy:
       src: "{{ playbook_dir }}/../.gitconfig"
