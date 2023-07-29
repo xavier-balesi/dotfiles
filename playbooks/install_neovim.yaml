@@ -10,14 +10,7 @@
       install_directory: "{{ ansible_env.HOME }}/Apps/nvim"
       local_bin_directory: "{{ ansible_env.HOME }}/.local/bin"
       config_directory: "{{ ansible_env.HOME }}/.config"
-
-  - name: install package dependencies
-    apt:
-      pkg:
-      - isort
-      - black
-      - yamllint
-    become: true
+    tags: always
 
   - name: create Neovim destination dir
     file:
@@ -26,6 +19,15 @@
     loop:
       - "{{ install_directory }}"
       - "{{ local_bin_directory }}"
+    tags: always
+
+  - name: install package dependencies
+    apt:
+      pkg:
+      - isort
+      - black
+      - yamllint
+    become: true
 
   - name: download neovim nightly
     get_url:
@@ -48,6 +50,7 @@
     copy:
       src: "{{ playbook_dir }}/../.config/nvim"
       dest: "{{ config_directory }}"
+    tags: config
 
   - name: create temp directory for NVM install
     tempfile:
@@ -83,18 +86,23 @@
       - tree-sitter
       extra_args: '--upgrade'
 
-  - name: install getnf (get nerd font)
-    git:
-      repo: https://github.com/ronniedroid/getnf.git
-      dest: ~/Apps/getnf
+  - name: npm install tree-sitter
+    npm:
+      name: tree-sitter
+      global: true
 
-  - name: install getnf
-    command:
-      chdir: ~/Apps/getnf
-      cmd: ./install.sh
-      creates: ~/.local/bin/getnf
+  - name: create local font directory
+    file:
+      path: ~/.local/share/fonts/JetBrainsMono
+      state: directory
 
-  - name: install merd fonts
-    shell: echo 31 | getnf
+  - name: download Nerd Fonts
+    get_url:
+      url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip
+      dest: ~/.local/share/fonts/JetBrainsMono.zip
 
-
+  - name: extract Nerd Fonts
+    unarchive:
+      src: ~/.local/share/fonts/JetBrainsMono.zip
+      dest: ~/.local/share/fonts/JetBrainsMono
+      creates: ~/.local/share/fonts/JetBrainsMono/readme.md
