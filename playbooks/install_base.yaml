@@ -67,4 +67,10 @@
       - lightdm
       - sxhkd
       - picom
+      - dunst
+      - feh
+      - blueman
+      - brightnessctl
+      - pulsemixer
+      - playerctl
     become: true
