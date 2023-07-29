@@ -5,6 +5,15 @@
   connection: local
   tasks:
 
+  - name: set variables
+    set_fact:
+      apps_directory: ~/Apps
+
+  - name: create directories
+    file:
+      path: "{{ apps_directory }}"
+      state: directory
+
   - name: install build dependencies
     apt:
       pkg:
