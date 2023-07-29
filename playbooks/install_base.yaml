@@ -35,6 +35,9 @@
       - lm-sensors
       - gnome-tweaks
       - flameshot
+      - xclip
+      - net-tools
+      - gpick
     become: true
 
   - name: install social networks
