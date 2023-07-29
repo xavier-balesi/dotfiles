@@ -1,0 +1,12 @@
+---
+
+- name: "install funny stuffs"
+  hosts: localhost
+  connection: local
+  tasks:
+
+  - name: install unimatrix
+    get_url:
+      url: https://raw.githubusercontent.com/will8211/unimatrix/master/unimatrix.py
+      dest: ~/Apps/unimatrix.py
+      mode: 0755
