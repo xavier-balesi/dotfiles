@@ -1,0 +1,50 @@
+#! /bin/sh
+
+SECOND_MONITOR_SIDE=left
+THIRD_MONITOR_SIDE=left
+
+PRINCIPAL=$(xrandr | grep primary | awk '{print $1}')
+SECOND_MONITOR=$(xrandr | grep connected | awk '{i++}i==2' | awk '{print $1}')
+THIRD_MONITOR=$(xrandr | grep connected | awk '{i++}i==3' | awk '{print $1}')
+
+bash ${HOME}/.config/bspwm/scripts/autostart.sh
+
+if [ "$(xrandr | grep -sw 'connected' | wc -l)" = "3" ]; then
+  bspc monitor $(bspc query -M | sed -n 1p) -d I II III
+  bspc monitor $(bspc query -M | sed -n 2p) -d IV V VI
+  bspc monitor $(bspc query -M | sed -n 3p) -d VII VIII IX
+  # Set Monitors Side and output
+  xrandr --output $THIRD_MONITOR --$THIRD_MONITOR_SIDE-of $PRINCIPAL
+  xrandr --output $SECOND_MONITOR --$SECOND_MONITOR_SIDE-of $THIRD_MONITOR
+elif [ "$(xrandr | grep -sw 'connected' | wc -l)" = "2" ]; then
+  bspc monitor $(bspc query -M | sed -n 1p) -d I II III IV V
+  bspc monitor $(bspc query -M | sed -n 2p) -d VI VII VIII IX X
+  #Set Monitors Side and output
+  xrandr --output $SECOND_MONITOR --$SECOND_MONITOR_SIDE-of $PRINCIPAL
+else
+  bspc monitor -d I II III IV V VI VII VIII IX X
+fi
+
+bspc config border_width         2
+bspc config window_gap          16
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      false
+bspc config presel_feedback_color \#504945
+
+# focus on hover
+# bspc config focus_follows_pointer true
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a google-chrome-stable desktop='^I'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+
+# bspc rule -a SIGNALIS.exe desktop='^4' state=fullscreen
+
+# while bspc subscribe -c 1 node_focus; do
+#     bspc config border_width 0
+#     bspc config -n focused border_width 1
+# done
