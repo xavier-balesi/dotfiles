@@ -8,11 +8,15 @@
   - name: set variables
     set_fact:
       apps_directory: ~/Apps
+      local_bin_directory: ~/.local/bin
 
   - name: create directories
     file:
-      path: "{{ apps_directory }}"
+      path: "{{ item }}"
       state: directory
+    loop:
+    - "{{ apps_directory }}"
+    - "{{ local_bin_directory }}"
 
   - name: install build dependencies
     apt:

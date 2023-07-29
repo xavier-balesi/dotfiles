@@ -1,0 +1,28 @@
+
+- name: setup user
+  import_playbook: setup_user.yaml
+
+- name: install base packages
+  import_playbook: install_base.yaml
+
+- name: install base config
+  import_playbook: install_base_config.yaml
+
+- name: install python
+  import_playbook: install_python.yaml
+
+- name: install kitty
+  import_playbook: install_kitty.yaml
+
+- name: install neovim
+  import_playbook: install_neovim.yaml
+
+- name: install lazygit
+  import_playbook: install_lazygit.yaml
+
+- name: install fun
+  import_playbook: install_fun.yaml
+
+- name: install game
+  import_playbook: install_game.yaml
+
