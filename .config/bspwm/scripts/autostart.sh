@@ -15,4 +15,4 @@ dunst &
 
 MONITOR=HDMI-1-0 polybar example &
 
-feh --bg-scale ~/.local/share/wallpapers/blame3.jpg
+feh --bg-scale ~/.local/share/wallpapers/gruvbox_blame3.jpg
