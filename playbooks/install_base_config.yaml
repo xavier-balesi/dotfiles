@@ -16,6 +16,7 @@
       block: |
         export PATH=$PATH:${HOME}/.local/bin
         setxkbmap -option caps:swapescape
+        setxkbmap -option compose:ralt
       marker: "# {mark} ANSIBLE MANAGED BLOCK"
 
   - name: add color_prompt in bashrc for kitty
