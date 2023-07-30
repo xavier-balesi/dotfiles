@@ -12,6 +12,10 @@
         export PATH=$PATH:${HOME}/.local/bin
         setxkbmap -option caps:swapescape
         setxkbmap -option compose:ralt
+        ssh_agent_pid=$(ps -ef | grep -v grep | grep 'ssh-agent' | awk '{printf $2}')
+        if [[ "${ssh_agent_pid}" == "" ]]; then
+          eval $(ssh-agent) > /dev/null # to type only once the ssh passphrase
+        fi
       marker: "# {mark} ANSIBLE MANAGED BLOCK"
 
   - name: add color_prompt in bashrc for kitty
@@ -47,3 +51,8 @@
       dest: ~/.local/share
     loop:
     - wallpapers
+
+  - name: copy sshh config
+    synchronize:
+      src: "{{ playbook_dir }}/../ssh/config"
+      dest: ~/.ssh/config
