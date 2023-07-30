@@ -1,0 +1,38 @@
+---
+
+- name: install YTfzf (YT reader in terminal)
+  hosts: localhost
+  connection: local
+  tasks:
+
+  - name: set variables
+    set_fact:
+      home_user: "{{ lookup('ansible.builtin.env', 'HOME') }}"
+
+  - name: clone repository
+    git:
+      repo: https://github.com/pystardust/ytfzf
+      dest: "{{ home_user }}/Apps/ytfzf"
+
+
+  - name: install dependencies
+    apt:
+      pkg:
+      - jq
+      - curl
+      - fzf
+    become: true
+
+  - name: install ueberzugpp deb from url
+    ansible.builtin.apt:
+      deb: https://download.opensuse.org/repositories/home:/justkidding/xUbuntu_22.04/amd64/ueberzugpp_2.9.0_amd64.deb
+
+  - name: install
+    shell:
+      cmd: make install
+      chdir: "{{ home_user }}/Apps/ytfzf"
+    become: yes
+    loop:
+    - 'make install'
+    - 'make install doc'
+    - 'make addons'
