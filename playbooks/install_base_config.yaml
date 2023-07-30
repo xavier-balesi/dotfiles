@@ -56,3 +56,10 @@
     synchronize:
       src: "{{ playbook_dir }}/../ssh/config"
       dest: ~/.ssh/config
+
+  # move in specific playbook
+  - name: install rofi-wallpaper
+    file:
+      state: link
+      src: ~/.config/rofi/scripts/wallpapers_selector.sh
+      dest: ~/.local/bin/rofi-wallpaper

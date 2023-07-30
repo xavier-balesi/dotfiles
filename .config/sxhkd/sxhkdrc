@@ -146,3 +146,7 @@ XF86AudioPrev
 # Screenshot
 Print
     flameshot gui
+
+# Select wallpaper
+super + Print
+    rofi-wallpaper
