@@ -48,6 +48,8 @@
       - fzf
       - socat
       - neofetch
+      - stress-ng
+      - p7zip
     become: true
 
 # TODO add install from source yt-dt
