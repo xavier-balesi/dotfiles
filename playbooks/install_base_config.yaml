@@ -39,6 +39,7 @@
     - polybar
     - rofi
     - sxhkd
+    - dunst
 
   - name: copy gitconfig
     copy:
