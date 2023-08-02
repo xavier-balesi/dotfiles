@@ -14,8 +14,7 @@ sxhkd &
 dunst &
 
 # TODO manage all monitors
-MONITOR=HDMI-1-0 polybar example &
-
+MONITOR=${POLYBAR_MONITOR} polybar example &
 
 # Set wallpaper
 CACHE_WALLPAPER=${HOME}/.cache/wallpaper

@@ -3,11 +3,9 @@
 SECOND_MONITOR_SIDE=left
 THIRD_MONITOR_SIDE=left
 
-PRINCIPAL=$(xrandr | grep primary | awk '{print $1}')
-SECOND_MONITOR=$(xrandr | grep connected | awk '{i++}i==2' | awk '{print $1}')
-THIRD_MONITOR=$(xrandr | grep connected | awk '{i++}i==3' | awk '{print $1}')
-
-bash ${HOME}/.config/bspwm/scripts/autostart.sh
+PRINCIPAL=$(xrandr | grep -sw primary | awk '{printf $1}')
+SECOND_MONITOR=$(xrandr | grep -sw 'connected' | grep -E '^DP' | awk '{printf $1}')
+THIRD_MONITOR=$(xrandr | grep -sw 'connected' | grep -E '^HDMI' | awk '{printf $1}')
 
 if [ "$(xrandr | grep -sw 'connected' | wc -l)" = "3" ]; then
   bspc monitor $(bspc query -M | sed -n 1p) -d I II III
@@ -38,7 +36,18 @@ bspc config presel_feedback_color \#504945
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a google-chrome-stable desktop='^I'
+# bspc rule -a steam_app_22380 desktop='^VI' follow=on state=floating
 bspc rule -a mplayer2 state=floating
 bspc rule -a mpv state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
+
+if [ ! -z "${THIRD_MONITOR}" ]; then
+    export POLYBAR_MONITOR=${THIRD_MONITOR}
+elif [ ! -z "${SECOND_MONITOR}" ]; then
+    export POLYBAR_MONITOR=${SECOND_MONITOR}
+else
+    export POLYBAR_MONITOR=${PRINCIPAL}
+fi
+
+bash ${HOME}/.config/bspwm/scripts/autostart.sh
