@@ -42,6 +42,7 @@
     - dunst
     - neofetch
     - MangoHud
+    - lazygit
 
   - name: copy gitconfig
     copy:
