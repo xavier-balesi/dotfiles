@@ -37,6 +37,9 @@
       - htop
       - ripgrep
       - lm-sensors
+      - powertop
+      - tlp
+      - nmap
       - gnome-tweaks
       - flameshot
       - xclip
@@ -65,6 +68,7 @@
     apt:
       pkg:
       - mesa-utils
+      - linux-headers-generic
     become: true
 
   - name: install funny stuffs
@@ -88,6 +92,7 @@
       - brightnessctl
       - pulsemixer
       - playerctl
+      - cava
     become: true
 
   - name: install rofi-bluetooth
