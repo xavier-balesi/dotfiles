@@ -166,8 +166,8 @@ poll-interval = 5
 time-format = %H:%M
 format-charging = <animation-charging> <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
-label-charging = Charging %consumption% %percentage%%
-label-discharging = Discharging %consumption% %percentage%%
+label-charging = " 󰁜 %consumption% %percentage%%"
+label-discharging = " 󰁃 %consumption% %percentage%%"
 label-full = Fully charged
 label-low = BATTERY LOW
 ; Only applies if <ramp-capacity> is used
