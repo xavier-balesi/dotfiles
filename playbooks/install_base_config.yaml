@@ -40,6 +40,8 @@
     - rofi
     - sxhkd
     - dunst
+    - neofetch
+    - MangoHud
 
   - name: copy gitconfig
     copy:
