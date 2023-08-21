@@ -53,6 +53,9 @@
       - neofetch
       - stress-ng
       - p7zip
+      - xscreensaver
+      - xscreensaver-data-extra
+      - xscreensaver-gl-extra
     become: true
 
 # TODO add install from source yt-dt
