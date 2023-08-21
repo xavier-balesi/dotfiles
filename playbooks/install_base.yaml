@@ -45,6 +45,7 @@
       - xclip
       - net-tools
       - gpick
+      - docker.io # TODO add config
       # - yq # TODO install with snap
       - jq
       - mpv
