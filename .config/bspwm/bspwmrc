@@ -3,9 +3,12 @@
 SECOND_MONITOR_SIDE=left
 THIRD_MONITOR_SIDE=left
 
-PRINCIPAL=$(xrandr | grep -sw primary | awk '{printf $1}')
+PRINCIPAL=$(xrandr | grep -sw 'connected' | grep -E '^eDP' | awk '{printf $1}')
 SECOND_MONITOR=$(xrandr | grep -sw 'connected' | grep -E '^DP' | awk '{printf $1}')
 THIRD_MONITOR=$(xrandr | grep -sw 'connected' | grep -E '^HDMI' | awk '{printf $1}')
+
+xsetroot -cursor_name left_ptr &
+bash ${HOME}/.config/bspwm/scripts/autostart.sh
 
 if [ "$(xrandr | grep -sw 'connected' | wc -l)" = "3" ]; then
   bspc monitor $(bspc query -M | sed -n 1p) -d I II III
@@ -49,5 +52,3 @@ elif [ ! -z "${SECOND_MONITOR}" ]; then
 else
     export POLYBAR_MONITOR=${PRINCIPAL}
 fi
-
-bash ${HOME}/.config/bspwm/scripts/autostart.sh
