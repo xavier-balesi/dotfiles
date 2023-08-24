@@ -1,7 +1,7 @@
 ---
 # tasks file for install-python/install_pyenv
 
-- name: install pyenv
+- name: clone pyenv
   git:
     repo: 'https://github.com/pyenv/pyenv.git'
     dest: '{{ pyenv_root }}'

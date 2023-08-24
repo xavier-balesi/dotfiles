@@ -6,3 +6,6 @@
 
 - name: install pyenv
   include_tasks: 'install_pyenv.yaml'
+
+- name: install pdm
+  include_tasks: 'install_pdm.yaml'

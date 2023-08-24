@@ -1,0 +1,31 @@
+---
+# tasks file for install-python/install_pdm
+
+- name: create temporary dir for installation script
+  tempfile:
+    state: directory
+    suffix: dotfiles_python_pdm_
+  register: dotfiles_python_pdm_tmp
+
+- name: download pdm installation script
+  get_url:
+    url: https://pdm.fming.dev/install-pdm.py
+    dest: '{{ dotfiles_python_pdm_tmp.path }}/install-pdm.py'
+    checksum: sha256:https://pdm.fming.dev/install-pdm.py.sha256
+    mode: 0755
+
+- name: launch pdm installation script
+  shell: 'python3 {{ dotfiles_python_pdm_tmp.path }}/install-pdm.py'
+
+- name: get pdm bin path
+  shell: which pdm
+  register: dotfile_python_pdm_path
+
+- debug:
+    var: dotfile_python_pdm_path
+
+- name: install pdm completion
+  shell: >
+    {{ dotfile_python_pdm_path.stdout }} completion bash
+    > /etc/bash_completion.d/pdm.bash-completion
+  become: true
