@@ -62,8 +62,11 @@
       dest: ~/.ssh/config
 
   # move in specific playbook
-  - name: install rofi-wallpaper
+  - name: install rofi scripts in .local/bin
     file:
       state: link
-      src: ~/.config/rofi/scripts/wallpapers_selector.sh
-      dest: ~/.local/bin/rofi-wallpaper
+      src: ~/.config/rofi/scripts/{{ item.script }}
+      dest: ~/.local/bin/{{ item.executable }}
+    loop:
+      - { 'script': 'wallpapers_selector.sh', 'executable': 'rofi-wallpaper'  }
+      - { 'script': 'exit_selector.sh', 'executable': 'rofi-exit'  }
