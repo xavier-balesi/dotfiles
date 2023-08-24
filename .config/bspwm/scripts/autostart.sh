@@ -15,6 +15,7 @@ dunst &
 
 # TODO manage all monitors
 MONITOR=${POLYBAR_MONITOR} polybar example &
+xscreensaver -nosplash -log /dev/null &
 
 # Set wallpaper
 CACHE_WALLPAPER=${HOME}/.cache/wallpaper
