@@ -1,0 +1,2 @@
+# Type ssh passphrase only once by session
+AddKeysToAgent yes

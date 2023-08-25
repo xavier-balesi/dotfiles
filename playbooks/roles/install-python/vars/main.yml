@@ -1,0 +1,5 @@
+---
+# vars file for install-python
+
+python_version: 3.10.7
+pyenv_root: ~/.pyenv

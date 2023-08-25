@@ -3,52 +3,7 @@
 - name: "install python and cie"
   hosts: localhost
   connection: local
-  tasks:
-
-  - name: set variables
-    set_fact:
-      python_version: 3.10.7
-
-  - name: install build dependencies
-    apt:
-      pkg:
-      - build-essential
-      - libssl-dev
-      - zlib1g-dev 
-      - libbz2-dev
-      - libreadline-dev
-      - libsqlite3-dev
-      - curl
-      - libncursesw5-dev
-      - xz-utils
-      - tk-dev
-      - libxml2-dev
-      - libxmlsec1-dev
-      - libffi-dev
-      - liblzma-dev
-    become: true
-
-  - name: install pyenv
-    git:
-      repo: 'https://github.com/pyenv/pyenv.git'
-      dest: ~/.pyenv
-
-  - name: add pyenv to .bashrc
-    blockinfile:
-      path: ~/.bashrc
-      block: |
-        export PYENV_ROOT="$HOME/.pyenv"
-        command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-        eval "$(pyenv init -)"
-      marker: "# {mark} ANSIBLE MANAGED BLOCK - pyenv"
-
-  - name: install python {{python_version}} in pyenv
-    command: ~/.pyenv/bin/pyenv install {{python_version}}
-    args:
-      creates: ~/.pyenv/versions/{{ python_version }}
-
-  - name: set python {{ python_version }} from pyenv as default
-    copy:
-      dest: ~/.python-version
-      content: |-
-        {{ python_version }}
+  roles:
+  - role: install-python
+    python_version: 3.10.7
+    pyenv_root: ~/.pyenv

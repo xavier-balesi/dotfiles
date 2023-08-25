@@ -1,0 +1,11 @@
+---
+# tasks file for install-python
+
+- name: install dependencies
+  include_tasks: 'install_dependencies.yaml'
+
+- name: install pyenv
+  include_tasks: 'install_pyenv.yaml'
+
+- name: install pdm
+  include_tasks: 'install_pdm.yaml'

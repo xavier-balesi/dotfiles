@@ -17,18 +17,19 @@
 ;==========================================================
 
 [colors]
-background = #282A2E
+background = #292522
 background-alt = #373B41
-foreground = #C5C8C6
+foreground = #867462
 primary = #F0C674
 secondary = #8ABEB7
 alert = #A54242
 disabled = #707880
 green = #78997A
 red = #D17665
+blue = #7F91B2
 
 [bar/example]
-monitor = ${env:MONITOR:HDMI-1-0}
+monitor = ${env:MONITOR:HDMI-0}
 width = 100%
 height = 24pt
 radius = 3
@@ -51,6 +52,7 @@ margin-top = 0
 margin-bottom = 0
 border-color = #00000000
 
+padding-top = 5
 padding-left = 2
 padding-right = 3
 
@@ -75,6 +77,8 @@ enable-ipc = true
 wm-restack = bspwm
 ; wm-restack = i3
 
+# when override-redirect is true, the bar doesn't have a tile node reserved
+# and the windows are over the bar
 ; override-redirect = true
 
 [module/xworkspaces]
@@ -82,10 +86,12 @@ type = internal/xworkspaces
 
 label-active = %name%
 label-active-background = ${colors.background-alt}
+label-active-foreground = ${colors.primary}
 label-active-underline= ${colors.primary}
 label-active-padding = 1
 
 label-occupied = %name%
+label-occupied-foreground = ${colors.primary}
 label-occupied-padding = 1
 
 label-urgent = %name%
@@ -93,7 +99,6 @@ label-urgent-background = ${colors.alert}
 label-urgent-padding = 1
 
 label-empty = %name%
-label-empty-foreground = ${colors.disabled}
 label-empty-padding = 1
 
 [module/xwindow]
@@ -142,16 +147,16 @@ format-prefix-foreground = ${colors.primary}
 label = %percentage_used:2%%
 bar-used-indicator =
 bar-used-width = 10
-bar-used-foreground-0 = #3384D0
-bar-used-fill = >
-bar-used-empty = >
-bar-used-empty-foreground = #FFFFFF
+bar-used-foreground-0 = ${colors.primary}
+bar-used-fill = *
+bar-used-empty = *
+bar-used-empty-foreground = ${colors.disabled}
 format = <bar-used> <label>
 
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = "󱤎 "
+format-prefix = "󰊚 "
 
 format-prefix-foreground = ${colors.primary}
 label = %percentage:2%%
@@ -166,8 +171,8 @@ poll-interval = 5
 time-format = %H:%M
 format-charging = <animation-charging> <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
-label-charging = Charging %consumption% %percentage%%
-label-discharging = Discharging %consumption% %percentage%%
+label-charging = " 󰁜 %consumption% %percentage%%"
+label-discharging = " 󰁃 %consumption% %percentage%%"
 label-full = Fully charged
 label-low = BATTERY LOW
 ; Only applies if <ramp-capacity> is used
@@ -236,6 +241,11 @@ date-alt = %Y-%m-%d %H:%M:%S
 
 label = %date%
 label-foreground = ${colors.primary}
+
+[module/gpu-temp]
+type = custom/script
+exec = /home/xavier/.config/polybar/scripts/gpu_temp.sh
+interval = 2
 
 [settings]
 screenchange-reload = true

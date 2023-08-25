@@ -10,3 +10,5 @@
       url: https://raw.githubusercontent.com/will8211/unimatrix/master/unimatrix.py
       dest: ~/Apps/unimatrix.py
       mode: 0755
+
+# TODO add gruvbox-factory

@@ -12,6 +12,10 @@
         export PATH=$PATH:${HOME}/.local/bin
         setxkbmap -option caps:swapescape
         setxkbmap -option compose:ralt
+        ssh_agent_pid=$(ps -ef | grep -v grep | grep 'ssh-agent' | awk '{printf $2}')
+        if [[ "${ssh_agent_pid}" == "" ]]; then
+          eval $(ssh-agent) > /dev/null # to type only once the ssh passphrase
+        fi
       marker: "# {mark} ANSIBLE MANAGED BLOCK"
 
   - name: add color_prompt in bashrc for kitty
@@ -35,6 +39,10 @@
     - polybar
     - rofi
     - sxhkd
+    - dunst
+    - neofetch
+    - MangoHud
+    - lazygit
 
   - name: copy gitconfig
     copy:
@@ -47,3 +55,18 @@
       dest: ~/.local/share
     loop:
     - wallpapers
+
+  - name: copy sshh config
+    synchronize:
+      src: "{{ playbook_dir }}/../ssh/config"
+      dest: ~/.ssh/config
+
+  # move in specific playbook
+  - name: install rofi scripts in .local/bin
+    file:
+      state: link
+      src: ~/.config/rofi/scripts/{{ item.script }}
+      dest: ~/.local/bin/{{ item.executable }}
+    loop:
+      - { 'script': 'wallpapers_selector.sh', 'executable': 'rofi-wallpaper'  }
+      - { 'script': 'exit_selector.sh', 'executable': 'rofi-exit'  }

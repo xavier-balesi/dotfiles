@@ -37,29 +37,49 @@
       - htop
       - ripgrep
       - lm-sensors
+      - powertop
+      - tlp
+      - nmap
       - gnome-tweaks
       - flameshot
       - xclip
       - net-tools
       - gpick
+      - docker.io # TODO add config
+      # - yq # TODO install with snap
+      - jq
+      - mpv
+      - fzf
+      - socat
+      - neofetch
+      - stress-ng
+      - p7zip
+      - xscreensaver
+      - xscreensaver-data-extra
+      - xscreensaver-gl-extra
     become: true
+
+# TODO add install from source yt-dt
 
   - name: install social networks
     snap:
       name:
       - discord
+      - musikcube
     become: true
 
   - name: install gpu packages
     apt:
       pkg:
       - mesa-utils
+      - linux-headers-generic
     become: true
 
   - name: install funny stuffs
     apt:
       pkg:
       - cool-retro-term
+      - tty-clock
     become: true
 
   - name: install ricing tools
@@ -77,6 +97,7 @@
       - brightnessctl
       - pulsemixer
       - playerctl
+      - cava
     become: true
 
   - name: install rofi-bluetooth
