@@ -79,6 +79,7 @@
     apt:
       pkg:
       - cool-retro-term
+      - tty-clock
     become: true
 
   - name: install ricing tools
