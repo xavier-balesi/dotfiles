@@ -92,6 +92,11 @@
       name: tree-sitter
       global: true
 
+  - name: npm install tree-sitter-cli
+    npm:
+      name: tree-sitter-cli
+      global: true
+
   - name: create local font directory
     file:
       path: ~/.local/share/fonts/JetBrainsMono
