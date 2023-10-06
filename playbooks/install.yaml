@@ -23,6 +23,9 @@
 - name: install lazygit
   import_playbook: install_lazygit.yaml
 
+- name: install ricing
+  import_playbook: install_ricing.yaml
+
 - name: install fun
   import_playbook: install_fun.yaml
 
