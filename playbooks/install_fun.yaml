@@ -11,4 +11,18 @@
       dest: ~/Apps/unimatrix.py
       mode: 0755
 
+  - name: install funny apps
+    apt:
+      pkg:
+      - cool-retro-term
+      - tty-clock
+    become: true
+
+  - name: install social networks
+    snap:
+      name:
+      - discord
+      - musikcube
+    become: true
+
 # TODO add gruvbox-factory
