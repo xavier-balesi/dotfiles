@@ -8,6 +8,9 @@
 - name: install base config
   import_playbook: install_base_config.yaml
 
+- name: install bashrc
+  import_playbook: install_bashrc.yaml
+
 - name: install python
   import_playbook: install_python.yaml
 
