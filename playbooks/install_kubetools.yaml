@@ -1,0 +1,32 @@
+---
+
+- name: "install kube tools"
+  hosts: localhost
+  connection: local
+  tasks:
+
+  - name: set directories variables
+    set_fact:
+      local_bin_directory: "{{ ansible_env.HOME }}/.local/bin"
+    tags: always
+
+  - name: get kubectl stable release version
+    uri:
+      url: https://dl.k8s.io/release/stable.txt
+      return_content: true
+    register: stable_version
+    failed_when: stable_version is failed
+
+  - name: get kubectl stable release checksum
+    uri:
+      url: "https://dl.k8s.io/release/{{ stable_version.content }}/bin/linux/amd64/kubectl.sha256"
+      return_content: true
+    register: kubectl_checksum
+    failed_when: kubectl_checksum is failed
+
+  - name: download kubectl stable release
+    get_url:
+      url: "https://dl.k8s.io/release/{{ stable_version.content }}/bin/linux/amd64/kubectl"
+      dest: "{{ local_bin_directory }}/kubectl"
+      checksum: "sha256:{{ kubectl_checksum.content }}"
+      mode: 0755
