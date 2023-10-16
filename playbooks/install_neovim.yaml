@@ -113,6 +113,12 @@
       mode: 0755
     tags: marksman
 
+  - name: npm install prettier
+    npm:
+      name: prettier
+      global: true
+    tags: prettier
+
   - name: create local font directory
     file:
       path: ~/.local/share/fonts/JetBrainsMono
