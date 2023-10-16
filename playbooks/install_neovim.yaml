@@ -97,6 +97,22 @@
       name: tree-sitter-cli
       global: true
 
+  - name: npm install markdownlint
+    npm:
+      name: '{{ item }}'
+      global: true
+    tags: markdownlint
+    loop:
+      - markdownlint
+      - markdownlint-cli
+
+  - name: download marksman
+    get_url:
+      url: https://github.com/artempyanykh/marksman/releases/download/2023-07-25/marksman-linux-x64
+      dest: ~/.local/bin/marksman
+      mode: 0755
+    tags: marksman
+
   - name: create local font directory
     file:
       path: ~/.local/share/fonts/JetBrainsMono
