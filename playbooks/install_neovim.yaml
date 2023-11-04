@@ -98,6 +98,7 @@
       - isort
       - black
       - yamllint
+      - ansible-lint
       - neovim
       - tree-sitter
       extra_args: '--upgrade'

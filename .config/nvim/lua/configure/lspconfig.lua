@@ -30,6 +30,29 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 lspconfig.jdtls.setup {
     root_dir = root_pattern(".git", "pom.xml")
 }
+lspconfig.ansiblels.setup {
+    capabilities = capabilities,
+    settings = {
+        ansible = {
+            ansible = {
+                path = "ansible"
+            },
+            executionEnvironment = {
+                enabled = false
+            },
+            python = {
+                interpreterPath = "python"
+            },
+            validation = {
+                enabled = true,
+                lint = {
+                    enabled = false, -- because it doesn't use the venv where ansible-lint is imstalled
+                    path = "ansible-lint"
+                }
+            }
+        }
+    },
+}
 
 lspconfig.pyright.setup {
     capabilities = capabilities,
