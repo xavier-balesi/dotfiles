@@ -6,6 +6,7 @@ local servers = {
     'lua_ls',
     'bashls',
     'pyright',
+    'ansiblels',
 }
 
 require("mason").setup()
