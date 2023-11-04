@@ -3,6 +3,11 @@
 - name: "Clone, make and install Neovim"
   hosts: localhost
   connection: local
+  vars:
+    python_version: 3.10.7
+    neovim_pyenv_virtualenv: neovim3
+    pyenv_root: ~/.pyenv
+
   tasks:
 
   - name: set directories variables
@@ -28,6 +33,17 @@
       - black
       - yamllint
     become: true
+
+  - name: create pyenv environment for neovim
+    shell: 'pyenv virtualenv {{ python_version }} {{ neovim_pyenv_virtualenv }}'
+    args:
+      creates: '{{ pyenv_root }}/versions/{{ neovim_pyenv_virtualenv }}'
+
+  # TODO use a specific file
+  - name: set NVIM_PYTHON_PATH in bashrc
+    lineinfile:
+      path: ~/.bashrc
+      line: export NVIM_PYTHON_PATH="{{ pyenv_root }}/versions/{{ neovim_pyenv_virtualenv }}/bin/python"
 
   - name: download neovim nightly
     get_url:
@@ -77,7 +93,7 @@
 
   - name: install pip dependencies
     pip:
-      executable: ~/.pyenv/versions/3.10.7/bin/pip3
+      executable: ~/.pyenv/versions/{{ neovim_pyenv_virtualenv }}/bin/pip3
       name:
       - isort
       - black
@@ -89,8 +105,15 @@
   # fixme npm not yet available as it's just in PATH from the previous task
   - name: npm install tree-sitter
     npm:
-      name: tree-sitter
+      name: '{{ item }}'
       global: true
+    loop:
+    - tree-sitter
+    - tree-sitter-cli
+    tags:
+    - tree-sitter
+
+  # TODO find a way to install TSInstallFromGrammar gotmpl
 
   - name: npm install tree-sitter-cli
     npm:
