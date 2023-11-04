@@ -1,7 +1,8 @@
-
 -- [[ opts.lua ]]
 local opt = vim.opt
 local cmd = vim.api.nvim_command
+
+vim.g.python3_host_prog = os.getenv('NVIM_PYTHON_PATH')
 
 -- [[ context ]]
 opt.number = true
@@ -11,12 +12,12 @@ opt.ttyfast = true
 -- [[ system ]]
 opt.mouse = 'a'
 opt.clipboard = 'unnamedplus'
-opt.backupdir = '/home/xbalesi/.cache/vim'
+opt.backupdir = os.getenv('HOME') .. '/.cache/vim'
 opt.hidden = true
 opt.backup = false
 opt.writebackup = false
 opt.cmdheight = 2
-opt.updatetime=300
+opt.updatetime = 300
 table.insert(opt.shortmess, 'c')
 
 -- [[ splits ]]
@@ -24,7 +25,7 @@ opt.splitright = true
 opt.splitbelow = true
 
 -- [[ completion ]]
-opt.wildmode = { 'full'}
+opt.wildmode = { 'full' }
 opt.wildoptions = 'tagfile'
 -- opt.wildoptions = 'pum'
 
@@ -46,4 +47,3 @@ opt.inccommand = 'split'
 -- [[ encoding ]]
 opt.encoding = 'utf8'
 opt.fileencoding = 'utf8'
-
