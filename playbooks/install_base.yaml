@@ -54,6 +54,7 @@
       - neofetch
       - stress-ng
       - p7zip
+      - inetutils-traceroute
       - xscreensaver
       - xscreensaver-data-extra
       - xscreensaver-gl-extra
@@ -61,52 +62,9 @@
 
 # TODO add install from source yt-dt
 
-  - name: install social networks
-    snap:
-      name:
-      - discord
-      - musikcube
-    become: true
-
   - name: install gpu packages
     apt:
       pkg:
       - mesa-utils
       - linux-headers-generic
     become: true
-
-  - name: install funny stuffs
-    apt:
-      pkg:
-      - cool-retro-term
-      - tty-clock
-    become: true
-
-  - name: install ricing tools
-    apt:
-      pkg:
-      - bspwm
-      - polybar
-      - rofi
-      - lightdm
-      - sxhkd
-      - picom
-      - dunst
-      - feh
-      - blueman
-      - brightnessctl
-      - pulsemixer
-      - playerctl
-      - cava
-    become: true
-
-  - name: install rofi-bluetooth
-    git:
-      repo: https://github.com/nickclyde/rofi-bluetooth.git
-      dest: "{{ apps_directory }}/rofi-bluetooth"
-
-  - name: link rofi-bluetooth in local/bin
-    file:
-      src: "{{ apps_directory }}/rofi-bluetooth/rofi-bluetooth"
-      dest: ~/.local/bin/rofi-bluetooth
-      state: link

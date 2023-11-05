@@ -1,0 +1,33 @@
+---
+
+# source: https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+
+- name: "install terraform"
+  hosts: localhost
+  connection: local
+  tasks:
+
+  - name: install dependencies
+    apt:
+      pkg:
+      - gnupg
+      - software-properties-common
+    become: true
+
+  - name: add terraform gpg key
+    apt_key:
+      url: https://apt.releases.hashicorp.com/gpg
+      keyring: /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    become: true
+
+  - name: add terraform apt repository
+    apt_repository:
+      repo: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+    become: true
+
+  - name: apt get terraform
+    apt:
+      update_cache: yes
+      name: terraform
+      state: latest
+    become: true
