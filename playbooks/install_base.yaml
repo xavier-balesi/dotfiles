@@ -54,6 +54,7 @@
       - neofetch
       - stress-ng
       - p7zip
+      - inetutils-traceroute
       - xscreensaver
       - xscreensaver-data-extra
       - xscreensaver-gl-extra
