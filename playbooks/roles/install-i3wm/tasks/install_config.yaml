@@ -9,6 +9,9 @@
 
 - name: copy i3 config to .config
   copy:
-    src: config
-    dest: ~/.config/i3/config
+    src: '{{ item }}'
+    dest: '~/.config/i3/{{ item }}'
+  loop:
+  - config
+  - autostart.sh
 
