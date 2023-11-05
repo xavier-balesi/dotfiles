@@ -44,6 +44,14 @@
     lineinfile:
       path: ~/.bashrc
       line: export NVIM_PYTHON_PATH="{{ pyenv_root }}/versions/{{ neovim_pyenv_virtualenv }}/bin/python"
+      regexp: '^export NVIM_PYTHON_PATH='
+
+  - name: set EDITOR in bashrc
+    lineinfile:
+      path: ~/.bashrc
+      line: export EDITOR=nvim
+      regexp: '^export EDITOR='
+    tags: config
 
   - name: download neovim nightly
     get_url:
