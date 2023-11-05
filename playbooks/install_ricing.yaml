@@ -13,7 +13,6 @@
       - rofi
       - lightdm
       - sxhkd
-      - picom
       - dunst
       - feh
       - blueman
@@ -21,6 +20,7 @@
       - pulsemixer
       - playerctl
       - cava
+      - compton
     become: true
 
   - name: install rofi-bluetooth
