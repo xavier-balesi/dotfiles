@@ -1,0 +1,9 @@
+---
+# tasks file for install-i3wm
+
+- name: install i3wm
+  include_tasks: install_i3wm.yaml
+
+- name: install config
+  include_tasks: install_config.yaml
+  tags: config

@@ -1,0 +1,14 @@
+---
+
+# tasks file for i3wm config installation
+
+- name: create config directory
+  file:
+    path: ~/.config/i3
+    state: directory
+
+- name: copy i3 config to .config
+  copy:
+    src: config
+    dest: ~/.config/i3/config
+

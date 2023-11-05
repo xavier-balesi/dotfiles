@@ -1,0 +1,4 @@
+---
+# vars file for install-i3wm
+
+i3wm_keyring_url: https://debian.sur5r.net/i3/pool/main/s/sur5r-keyring/sur5r-keyring_2023.02.18_all.deb

@@ -1,0 +1,20 @@
+---
+# tasks file to install i3wm packages
+
+- name: install i3wm keyring
+  apt:
+    deb: '{{ i3wm_keyring_url }}'
+  become: true
+
+- name: add i3 source repository
+  apt_repository:
+    repo: 'deb http://debian.sur5r.net/i3/ {{ ansible_distribution_release }} universe'
+    filename: sur5r-i3.list
+    state: present
+  become: true
+
+- name: install i3 packages
+  apt:
+    name: i3
+    update_cache: true
+  become: true

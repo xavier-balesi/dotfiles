@@ -1,0 +1,7 @@
+---
+
+- name: "install i3wm"
+  hosts: localhost
+  connection: local
+  roles:
+  - role: install-i3wm
