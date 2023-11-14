@@ -1,0 +1,21 @@
+---
+# tasks file for install-golang
+
+- name: download golang {{ golang_version }}
+  get_url:
+    url: 'https://go.dev/dl/go{{ golang_version }}.linux-amd64.tar.gz'
+    dest: '/opt/go{{ golang_version }}.linux-amd64.tar.gz'
+  become: true
+
+
+- name: extract archive
+  unarchive:
+    src: '/opt/go{{ golang_version }}.linux-amd64.tar.gz'
+    dest: /usr/local
+  become: true
+
+- name: add golang init script in bashrc.d
+  copy:
+    src: golang.bashrc
+    dest: ~/.bashrc.d/spec/auto
+    mode: 0644

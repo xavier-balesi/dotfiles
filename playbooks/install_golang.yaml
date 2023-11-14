@@ -1,0 +1,7 @@
+---
+
+- name: "install golang"
+  hosts: localhost
+  connection: local
+  roles:
+  - role: install-golang

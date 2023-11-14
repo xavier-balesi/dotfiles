@@ -1,0 +1,4 @@
+---
+# vars file for install-golang
+
+golang_version: 1.21.4
