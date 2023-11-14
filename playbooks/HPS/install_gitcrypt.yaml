@@ -1,0 +1,31 @@
+---
+
+- name: "install gitcrypt"
+  hosts: localhost
+  connection: local
+  vars:
+    gitcrypt_url: https://github.com/AGWA/git-crypt/releases/download/0.7.0/git-crypt-0.7.0-linux-x86_64
+    gitcrypt_dest: ~/.local/bin
+
+  tasks:
+
+  # to fix error at runtime `gitcrypt: error while loading shared libraries: libcrypto.so.1.1: cannot open shared object file: No such file or directory`
+  # https://askubuntu.com/questions/1403778/upgrading-to-ubuntu-22-04-causes-libcrypto-errors-apt-dpkg-broken
+  - name: install libcrypto
+    apt:
+      deb: https://debian.mirror.ac.za/debian/pool/main/o/openssl/libssl1.1_1.1.1w-0%2Bdeb11u1_amd64.deb
+    become: true
+
+  - name: install dependencies
+    apt:
+      pkg:
+      - openssl
+      - libssl-dev
+      - g++
+    become: true
+
+  - name: download gitcrypt from {{ gitcrypt_url }} to
+    get_url:
+      url: '{{ gitcrypt_url }}'
+      dest: '{{ gitcrypt_dest }}/git-crypt'
+      mode: 0755
