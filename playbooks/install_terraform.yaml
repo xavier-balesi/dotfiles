@@ -5,6 +5,11 @@
 - name: "install terraform"
   hosts: localhost
   connection: local
+  vars:
+    terraform_docs_version: 0.16.0
+    terraform_docs_tmp_dir: /opt/terraform-docs
+    terraform_docs_archive_name: terraform-docs.tar.gz
+    terraform_docs_bin_dir: /usr/local/bin
   tasks:
 
   - name: install dependencies
@@ -31,3 +36,52 @@
       name: terraform
       state: latest
     become: true
+
+  - name: create terraform-docs tmp dir
+    file:
+      path: '{{ terraform_docs_tmp_dir }}'
+      state: directory
+    become: true
+    tags:
+    - terraform-docs
+
+  - name: download terraform-docs archive
+    get_url:
+      url: https://terraform-docs.io/dl/v{{ terraform_docs_version }}/terraform-docs-v{{ terraform_docs_version }}-{{ ansible_facts['system'] }}-amd64.tar.gz
+      dest: '{{ terraform_docs_tmp_dir }}/{{ terraform_docs_archive_name }}'
+    become: true
+    tags:
+    - terraform-docs
+
+  - name: extract terraform-docs archive
+    unarchive:
+      src: '{{ terraform_docs_tmp_dir }}/{{ terraform_docs_archive_name }}'
+      dest: '{{ terraform_docs_tmp_dir }}'
+    become: true
+    tags:
+    - terraform-docs
+
+  - name: copy terraform-docs binary to {{ terraform_docs_bin_dir }}
+    copy:
+      src: '{{ terraform_docs_tmp_dir }}/terraform-docs'
+      dest: '{{ terraform_docs_bin_dir }}'
+      mode: 0755
+    become: true
+    tags:
+    - terraform-docs
+
+  - name: remove temporary installation directory
+    file:
+      path: '{{ terraform_docs_tmp_dir }}'
+      state: absent
+    become: true
+    tags:
+    - terraform-docs
+
+  - name: install bash completion for terraform-docs
+    shell:
+      cmd: terraform-docs completion bash > /etc/bash_completion.d/terraform-docs.bash-completion
+    become: true
+    tags:
+    - terraform-docs
+
