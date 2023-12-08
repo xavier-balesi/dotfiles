@@ -3,6 +3,8 @@
 - name: "install kube tools"
   hosts: localhost
   connection: local
+  vars:
+    kube_tools_k9s_version: v0.29.0
   tasks:
 
   - name: set directories variables
@@ -69,3 +71,9 @@
     - kubens
     - kubectx
     tags: kubectx
+
+  - name: install k9s
+    apt:
+      deb: https://github.com/derailed/k9s/releases/download/{{ kube_tools_k9s_version }}/k9s_linux_amd64.deb
+    become: yes
+    tags: k9s
