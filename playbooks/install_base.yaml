@@ -58,6 +58,7 @@
       - xscreensaver
       - xscreensaver-data-extra
       - xscreensaver-gl-extra
+      - arandr
     become: true
 
 # TODO add install from source yt-dt
