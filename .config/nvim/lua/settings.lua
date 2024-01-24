@@ -11,7 +11,7 @@ opt.ttyfast = true
 
 -- [[ system ]]
 opt.mouse = 'a'
-opt.clipboard = 'unnamedplus'
+opt.clipboard = { 'unnamed', 'unnamedplus' }
 opt.backupdir = os.getenv('HOME') .. '/.cache/vim'
 opt.hidden = true
 opt.backup = false
