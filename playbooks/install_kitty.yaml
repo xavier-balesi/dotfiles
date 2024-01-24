@@ -20,11 +20,10 @@
   - name: execute installation script
     command:
       cmd: sh {{ kitty_dotfile_tmp.path  }}/installer.sh
-      creates: ~/.local/kitty.app
 
   - name: create symlink to .local/bin
     file:
-      src: "~/.local/kitty.app/bin/{{ item }}" 
+      src: "~/.local/kitty.app/bin/{{ item }}"
       dest: "~/.local/bin/{{ item }}"
       state: link
     loop:
