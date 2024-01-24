@@ -59,6 +59,7 @@
       - xscreensaver-data-extra
       - xscreensaver-gl-extra
       - arandr
+      - netstat-nat # maybe move to a 'netowrking' step
     become: true
 
 # TODO add install from source yt-dt
