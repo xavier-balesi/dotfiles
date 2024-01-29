@@ -1,0 +1,73 @@
+---
+
+- name: install AWS CLI and tools
+  hosts: localhost
+  connection: local
+  vars:
+    awscli_url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    awscli_install_dir: ~/Apps/aws-cli
+    awscli_bin_dir: ~/.local/bin
+    awsvault_url: https://github.com/99designs/aws-vault/releases/download/v7.2.0/aws-vault-linux-amd64
+    eksctl_url: https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_Linux_amd64.tar.gz
+
+  tasks:
+  - name: create temp directory
+    tempfile:
+      state: directory
+      suffix: _awscli
+    register: awscli_tmp_dir
+    tags: always
+
+  - name: download AWS CLI archive
+    get_url:
+      url: '{{ awscli_url }}'
+      dest: '{{ awscli_tmp_dir.path }}/awscli.zip'
+    tags:
+    - awscli
+
+  - name: unarchive AWS CLI installer
+    unarchive:
+      src: '{{ awscli_tmp_dir.path }}/awscli.zip'
+      dest: '{{ awscli_tmp_dir.path }}'
+    tags:
+    - awscli
+
+  - name: run AWS CLI installer
+    shell: './aws/install --install-dir {{ awscli_install_dir }} --bin-dir {{ awscli_bin_dir }} --update'
+    args:
+      chdir: '{{ awscli_tmp_dir.path }}'
+    tags:
+    - awscli
+
+  - name: install aws-vault in {{ awscli_bin_dir }}
+    get_url:
+      url: '{{ awsvault_url }}'
+      dest: '{{ awscli_bin_dir }}/aws-vault'
+      mode: '0755'
+    tags:
+    - awsvault
+
+
+  - name: download eksctl archive
+    get_url:
+      url: '{{ eksctl_url }}'
+      dest: '{{ awscli_tmp_dir.path }}/eksctl.tar.gz'
+    tags:
+    - eksctl
+
+  - name: unarchive eksctl
+    unarchive:
+      src: '{{ awscli_tmp_dir.path }}/eksctl.tar.gz'
+      dest: '{{ awscli_tmp_dir.path }}'
+    tags:
+    - eksctl
+
+  - name: install eksctl in {{ awscli_bin_dir }}
+    copy:
+      src: '{{ awscli_tmp_dir.path }}/eksctl'
+      dest: '{{ awscli_bin_dir }}/eksctl'
+      mode: '0755'
+    tags:
+    - eksctl
+
+
