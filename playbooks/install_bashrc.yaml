@@ -9,7 +9,6 @@
     set_fact:
       bashrcd_dir: "{{ ansible_env.HOME }}/.bashrc.d"
       bashrcd_global_dir: "{{ ansible_env.HOME }}/.bashrc.d/global"
-      bashrcd_spec_dir: "{{ ansible_env.HOME }}/.bashrc.d/spec"
       bashrcd_auto_dir: auto
       bashrcd_load_dir: load
 
@@ -20,8 +19,6 @@
     loop:
     - "{{ bashrcd_global_dir }}/{{ bashrcd_auto_dir }}"
     - "{{ bashrcd_global_dir }}/{{ bashrcd_load_dir }}"
-    - "{{ bashrcd_spec_dir }}/{{ bashrcd_auto_dir }}"
-    - "{{ bashrcd_spec_dir }}/{{ bashrcd_load_dir }}"
 
   - name: add loading bashrc.d files in .bashrc
     blockinfile:
