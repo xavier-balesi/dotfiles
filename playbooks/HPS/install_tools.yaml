@@ -1,0 +1,15 @@
+---
+
+- name: "install some usefull tools"
+  hosts: localhost
+  connection: local
+  vars:
+    keystore_explorer_url: https://github.com/kaikramer/keystore-explorer/releases/download/v5.5.3/kse_5.5.3_all.deb
+
+  tasks:
+
+  - name: install KeyStore Explorer
+    apt:
+      deb: "{{ keystore_explorer_url }}"
+      state: present
+    become: true
