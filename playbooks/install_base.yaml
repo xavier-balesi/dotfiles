@@ -46,6 +46,7 @@
       - net-tools
       - gpick
       - docker.io # TODO add config
+        # add dive (docker image inspector) https://github.com/wagoodman/dive?tab=readme-ov-file#installation
       # - yq # TODO install with snap
       - jq
       - mpv
@@ -60,9 +61,11 @@
       - xscreensaver-gl-extra
       - arandr
       - netstat-nat # maybe move to a 'netowrking' step
+      - inetutils-traceroute
     become: true
 
 # TODO add install from source yt-dt
+# TODO add install peek (https://mkezmkez.medium.com/how-to-make-a-gif-from-your-screen-in-ubuntu-or-linux-mint-53340dfd4a07)
 
   - name: install gpu packages
     apt:
