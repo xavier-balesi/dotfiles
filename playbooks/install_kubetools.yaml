@@ -4,7 +4,7 @@
   hosts: localhost
   connection: local
   vars:
-    kube_tools_k9s_version: v0.29.0
+    kube_tools_k9s_version: v0.31.8
   tasks:
 
   - name: set directories variables
