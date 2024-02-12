@@ -1,0 +1,36 @@
+---
+
+- name: "install helmfile"
+  hosts: localhost
+  connection: local
+  vars:
+    helmfile_url: https://github.com/helmfile/helmfile/releases/download/v0.159.0/helmfile_0.159.0_linux_amd64.tar.gz
+    helmfile_dest: ~/.local/bin
+
+  tasks:
+
+  - name: create temp directory
+    tempfile:
+      state: directory
+      suffix: helmfile
+    register: tmp_dir
+
+  - name: download helmfile archive
+    get_url:
+      url: '{{ helmfile_url }}'
+      dest: '{{ tmp_dir.path }}/helmfile.tar.gz'
+
+  - name: unarchive helmfile
+    unarchive:
+      src: '{{ tmp_dir.path }}/helmfile.tar.gz'
+      dest: '{{ tmp_dir.path }}'
+
+  - name: copy helmfile binary to {{ helmfile_dest }}
+    copy:
+      src: '{{ tmp_dir.path }}/helmfile'
+      dest: '{{ helmfile_dest }}/helmfile'
+      mode: 0755
+
+
+
+
