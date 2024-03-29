@@ -1,0 +1,11 @@
+---
+
+# task file to install java
+
+- name: install java {{ install_java_version }}
+  apt:
+    pkg:
+    - openjdk-{{ install_java_version }}-jdk
+    - openjdk-{{ install_java_version }}-jre
+  become: true
+

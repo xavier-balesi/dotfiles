@@ -1,0 +1,17 @@
+---
+
+# install gradle tasks
+
+- name: download gradle {{ install_java_gradle_version }}
+  unarchive:
+    src: https://services.gradle.org/distributions/gradle-{{ install_java_gradle_version }}-bin.zip
+    dest: ~/Apps
+    remote_src: yes
+    creates: ~/Apps/gradle-{{ install_java_gradle_version }}
+
+
+- name: link gradle in ~/.local/bin
+  file:
+    src: ~/Apps/gradle-{{ install_java_gradle_version }}/bin/gradle
+    dest: ~/.local/bin/gradle
+    state: link

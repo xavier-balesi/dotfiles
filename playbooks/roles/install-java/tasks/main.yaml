@@ -1,0 +1,8 @@
+---
+# tasks file for install-java
+
+- name: install jdk and jre
+  include_tasks: install_java.yaml
+
+- name: install gradle
+  include_tasks: install_gradle.yaml

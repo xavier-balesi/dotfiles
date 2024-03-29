@@ -1,0 +1,5 @@
+---
+# vars file for install-java
+
+install_java_version: 17
+install_java_gradle_version: 8.6
