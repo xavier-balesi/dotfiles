@@ -7,7 +7,6 @@
     dest: '/opt/go{{ golang_version }}.linux-amd64.tar.gz'
   become: true
 
-
 - name: extract archive
   unarchive:
     src: '/opt/go{{ golang_version }}.linux-amd64.tar.gz'
@@ -17,5 +16,8 @@
 - name: add golang init script in bashrc.d
   copy:
     src: golang.bashrc
-    dest: ~/.bashrc.d/spec/auto
+    dest: ~/.bashrc.d/global/auto
     mode: 0644
+
+- name: install delve (go debugger)
+  shell: 'go install github.com/go-delve/delve/cmd/dlv@{{ golang_delve_version }}'

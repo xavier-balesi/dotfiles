@@ -2,3 +2,4 @@
 # vars file for install-golang
 
 golang_version: 1.21.4
+golang_delve_version: latest
