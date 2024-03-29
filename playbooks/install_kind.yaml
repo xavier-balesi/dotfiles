@@ -1,0 +1,17 @@
+---
+
+- name: install kind
+  hosts: localhost
+  connection: local
+
+  vars:
+    kind_version: 0.22.0
+    kind_install_dir: ~/.local/bin
+
+  tasks:
+  - name: download kind {{ kind_version }} in {{ kind_install_dir }}
+    get_url:
+      url: https://github.com/kubernetes-sigs/kind/releases/download/v{{ kind_version }}/kind-linux-amd64
+      dest: '{{ kind_install_dir }}/kind'
+      checksum: sha256:https://github.com/kubernetes-sigs/kind/releases/download/v{{ kind_version }}/kind-linux-amd64.sha256sum
+      mode: 0755
