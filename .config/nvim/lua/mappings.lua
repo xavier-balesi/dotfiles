@@ -1,42 +1,42 @@
-local cmd = vim.api.nvim_command
-
+-- set leaders
 vim.g.mapleader = " "
 vim.g.maplocalleader = ";"
 
-local mp = require "utils.mappings"
 local opts = { expr = false, silent = true, noremap = true }
 
 -- [[ Basic remappings ]]
 
 -- tab for completion nav and enter to validate
-mp.map('i', '<TAB>', 'pumvisible() ? "<C-n>" : "<TAB>"', { expr = true, silent = true, noremap = true })
-mp.map('i', '<S-TAB>', 'pumvisible() ? "<C-p>" : "<C-h>"', { expr = true, silent = true, noremap = true })
+vim.keymap.set('i', '<TAB>', 'pumvisible() ? "<C-n>" : "<TAB>"', { expr = true, silent = true, noremap = true })
+vim.keymap.set('i', '<S-TAB>', 'pumvisible() ? "<C-p>" : "<C-h>"', { expr = true, silent = true, noremap = true })
 
 
 -- visual mode indent better
-mp.map('v', '>', '>gv', opts)
-mp.map('v', '<', '<gv', opts)
+vim.keymap.set('v', '>', '>gv', opts)
+vim.keymap.set('v', '<', '<gv', opts)
 
 -- windows déplacement
-mp.map('n', '<C-h>', '<C-w>h<CR>', opts)
-mp.map('n', '<C-j>', '<C-w>j<CR>', opts)
-mp.map('n', '<C-k>', '<C-w>k<CR>', opts)
-mp.map('n', '<C-l>', '<C-w>l<CR>', opts)
+vim.keymap.set('n', '<C-h>', '<C-w>h', opts)
+vim.keymap.set('n', '<C-j>', '<C-w>j', opts)
+vim.keymap.set('n', '<C-k>', '<C-w>k', opts)
+vim.keymap.set('n', '<C-l>', '<C-w>l', opts)
 
 -- indentation
-mp.map('n', '<leader><space>', "za", opts)
+vim.keymap.set('n', '<leader><space>', "za", opts)
 
 -- stop search hl
-mp.map('n', '<leader>q', ':nohl<CR>', opts)
+vim.keymap.set('n', '<leader>q', ':nohl<CR>', opts)
 
 -- quickfix list navigation
-mp.map('n', ']q', ':cnext<CR>zz', opts)
-mp.map('n', '[q', ':cprev<CR>zz', opts)
+vim.keymap.set('n', ']q', ':cnext<CR>zz', opts)
+vim.keymap.set('n', '[q', ':cprev<CR>zz', opts)
 
 -- operators remap
-mp.map('o', 'in(', ':<c-u>normal! f(vi(<cr>', { expr = false, silent = true, noremap = true })
-mp.map('o', 'in"', ':<c-u>normal! f"vi"<cr>', { expr = false, silent = true, noremap = true })
+-- note: commented because I don't know if I use it
+--       I think ib i" i' works
+-- vim.keymap.set('o', 'in(', ':<c-u>normal! f(vi(<cr>', { expr = false, silent = true, noremap = true })
+-- vim.keymap.set('o', 'in"', ':<c-u>normal! f"vi"<cr>', { expr = false, silent = true, noremap = true })
 
 -- tab remap
-mp.map('n', 'g[', 'gT', opts)
-mp.map('n', 'g]', 'gt', opts)
+vim.keymap.set('n', 'g[', 'gT', opts)
+vim.keymap.set('n', 'g]', 'gt', opts)
