@@ -62,6 +62,8 @@
       - arandr
       - netstat-nat # maybe move to a 'netowrking' step
       - inetutils-traceroute
+      - bat
+      - ranger
     become: true
 
 # TODO add install from source yt-dt
