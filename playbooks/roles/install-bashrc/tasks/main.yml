@@ -1,0 +1,37 @@
+---
+# tasks file for install-bashrc
+
+- name: set fact directories
+  set_fact:
+    bashrc_auto_dir: "{{ bashrcd_global_dir }}/{{ bashrcd_auto_dir }}"
+    bashrc_load_dir: "{{ bashrcd_global_dir }}/{{ bashrcd_load_dir }}"
+  tags:
+    - config
+
+- name: create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+  - "{{ bashrc_auto_dir }}"
+  - "{{ bashrc_load_dir }}"
+  - "~/.local/bin"
+
+- name: add loading bashrc.d files in .bashrc
+  blockinfile:
+    path: ~/.bashrc
+    block: |
+      export BASHRC_DIR="{{ bashrcd_dir }}"
+      for directory in $(find "${BASHRC_DIR}" -type d -name "{{ bashrcd_auto_dir }}"); do
+        for file in $(find "${directory}" -type f -or -type l -and -name "*.bashrc" | sort); do
+          source "${file}"
+        done
+      done
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - bashloader"
+
+- name: copy global bashrc.d base files
+  copy:
+    src: global
+    dest: ~/.bashrc.d
+  tags:
+    - config

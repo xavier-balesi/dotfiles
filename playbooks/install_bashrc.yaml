@@ -3,37 +3,5 @@
 - name: customize bashrc
   hosts: localhost
   connection: local
-  tasks:
-
-  - name: set variables
-    set_fact:
-      bashrcd_dir: "{{ ansible_env.HOME }}/.bashrc.d"
-      bashrcd_global_dir: "{{ ansible_env.HOME }}/.bashrc.d/global"
-      bashrcd_auto_dir: auto
-      bashrcd_load_dir: load
-
-  - name: create directories
-    file:
-      path: "{{ item }}"
-      state: directory
-    loop:
-    - "{{ bashrcd_global_dir }}/{{ bashrcd_auto_dir }}"
-    - "{{ bashrcd_global_dir }}/{{ bashrcd_load_dir }}"
-
-  - name: add loading bashrc.d files in .bashrc
-    blockinfile:
-      path: ~/.bashrc
-      block: |
-        export BASHRC_DIR="{{ bashrcd_dir }}"
-
-        for directory in $(find "${BASHRC_DIR}" -type d -name "{{ bashrcd_auto_dir }}"); do
-          for file in $(find "${directory}" -type f -or -type l -and -name "*.bashrc" | sort); do
-            source "${file}"
-          done
-        done
-      marker: "# {mark} ANSIBLE MANAGED BLOCK - bashloader"
-
-  - name: copy global bashrc.d files
-    copy:
-      src: "{{ playbook_dir }}/../.bashrc.d/"
-      dest: "{{ bashrcd_dir }}"
+  roles:
+    - role: install-bashrc

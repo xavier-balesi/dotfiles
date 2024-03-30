@@ -1,0 +1,7 @@
+---
+# vars file for install-bashrc
+
+bashrcd_dir: "{{ ansible_env.HOME }}/.bashrc.d"
+bashrcd_global_dir: "{{ ansible_env.HOME }}/.bashrc.d/global"
+bashrcd_auto_dir: auto
+bashrcd_load_dir: load

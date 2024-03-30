@@ -18,7 +18,7 @@ Role Variables
 Dependencies
 ------------
 
-install_bashrc.yaml
+role: install-bashrc
 
 Example Playbook
 ----------------
@@ -39,4 +39,4 @@ Apache-2.0
 Author Information
 ------------------
 
-email: xavier.balesi@protonmail.ch
+email: <xavier.balesi@protonmail.ch>
