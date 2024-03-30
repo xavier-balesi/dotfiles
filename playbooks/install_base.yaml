@@ -64,10 +64,10 @@
       - inetutils-traceroute
       - bat
       - ranger
+      - peek
     become: true
 
 # TODO add install from source yt-dt
-# TODO add install peek (https://mkezmkez.medium.com/how-to-make-a-gif-from-your-screen-in-ubuntu-or-linux-mint-53340dfd4a07)
 
   - name: install gpu packages
     apt:
