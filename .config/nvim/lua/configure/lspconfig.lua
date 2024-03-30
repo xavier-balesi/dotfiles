@@ -3,6 +3,7 @@ local mason = require('mason')
 local mason_lspconfig = require('mason-lspconfig')
 local root_pattern = lspconfig.util.root_pattern
 
+-- require('java').setup()
 
 mason.setup({})
 mason_lspconfig.setup({})
@@ -27,9 +28,10 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 --   }
 -- }
 
-lspconfig.jdtls.setup {
-    root_dir = root_pattern(".git", "pom.xml")
-}
+-- lspconfig.jdtls.setup {
+--     root_dir = root_pattern(".git", "pom.xml")
+-- }
+lspconfig.helm_ls.setup {}
 lspconfig.ansiblels.setup {
     capabilities = capabilities,
     settings = {
@@ -73,6 +75,15 @@ require 'lspconfig'.marksman.setup { on_attach = require('lsp-format').on_attach
 require 'lspconfig'.bashls.setup {}
 -- require 'lspconfig'.black.setup {}
 require 'lspconfig'.gopls.setup {}
+require 'lspconfig'.groovyls.setup {
+    settings = {
+        groovy = {
+            classpath = {
+                '/home/xavier/dev/groovy/groovy-4.0.18/lib',
+            }
+        }
+    }
+}
 
 vim.diagnostic.config({
     virtual_lines = false,
