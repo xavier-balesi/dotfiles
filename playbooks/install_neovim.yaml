@@ -32,6 +32,8 @@
       - isort
       - black
       - yamllint
+      - lua5.1
+      - liblua5.1-0-dev
     become: true
 
   - name: create pyenv environment for neovim
