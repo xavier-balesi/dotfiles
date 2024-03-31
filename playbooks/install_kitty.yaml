@@ -3,49 +3,6 @@
 - name: "install kitty terminal"
   hosts: localhost
   connection: local
-  tasks:
-
-  - name: create temporary dir for installation script
-    tempfile:
-      state: directory
-      suffix: kitty_dotfile
-    register: kitty_dotfile_tmp
-
-  - name: download kitty installation script
-    get_url:
-      url: https://sw.kovidgoyal.net/kitty/installer.sh
-      dest: "{{ kitty_dotfile_tmp.path }}"
-      mode: 0755
-
-  - name: execute installation script
-    command:
-      cmd: sh {{ kitty_dotfile_tmp.path  }}/installer.sh
-
-  - name: create symlink to .local/bin
-    file:
-      src: "~/.local/kitty.app/bin/{{ item }}"
-      dest: "~/.local/bin/{{ item }}"
-      state: link
-    loop:
-    - kitty
-    - kitten
-
-  - name: copy kitty.desktop
-    copy:
-      src: ~/.local/kitty.app/share/applications/kitty.desktop
-      dest: ~/.local/share/applications/kitty.desktop
-
-  - name: add kitty-open to use in file manager
-    copy:
-      src: ~/.local/kitty.app/share/applications/kitty-open.desktop
-      dest: ~/.local/share/applications/kitty-open.desktop
-
-  - name: update icon path in kitty.desktop
-    lineinfile:
-      path: '~/.local/share/applications/{{ item }}'
-      regexp: '^Icon='
-      line: "Icon=/home/{{ lookup('ansible.builtin.env', 'USER') }}/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png"
-    loop:
-    - kitty.desktop
-    - kitty-open.desktop
-
+  roles:
+    - install-bashrc
+    - install-kitty
