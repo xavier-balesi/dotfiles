@@ -1,10 +1,6 @@
 ---
 # tasks file for install-golang
 
-- name: install bashrc
-  import_role:
-    name: install-bashrc
-
 - name: download golang {{ golang_version }}
   get_url:
     url: 'https://go.dev/dl/go{{ golang_version }}.linux-amd64.tar.gz'
