@@ -15,6 +15,7 @@ set $mod Mod4
 exec_always --no-startup-id ~/.config/polybar/launch.sh &
 exec_always --no-startup-id picom -b
 exec_always --no-startup-id ~/.config/i3/autostart.sh &
+exec --no-startup-id ~/.config/i3/scripts/battery_alert.sh &
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -48,9 +49,6 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
-
-# screenshot
-bindsym Print exec flameshot gui
 
 # start a terminal
 bindsym $mod+Return exec kitty

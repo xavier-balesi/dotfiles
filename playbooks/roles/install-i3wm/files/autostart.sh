@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR=$(dirname $(realpath $0))
+SCRIPTS_DIR=${SCRIPT_DIR}/scripts
+
+
 # Set wallpaper
 CACHE_WALLPAPER=${HOME}/.cache/wallpaper
 DEFAULT_WALLPAPER=${HOME}/.local/share/wallpapers/gruvbox_blame3.jpg
@@ -8,4 +12,3 @@ DEFAULT_WALLPAPER=${HOME}/.local/share/wallpapers/gruvbox_blame3.jpg
 }
 
 feh --bg-scale $(cat "${CACHE_WALLPAPER}")
-
