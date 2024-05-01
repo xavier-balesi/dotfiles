@@ -16,6 +16,7 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh &
 exec_always --no-startup-id picom -b
 exec_always --no-startup-id ~/.config/i3/autostart.sh &
 exec --no-startup-id ~/.config/i3/scripts/battery_alert.sh &
+exec "xautolock -detectsleep -time 3 -locker \"i3lock -c 000000\""
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -52,6 +53,7 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec kitty
+bindsym $mod+shift+Return exec "kitty `xcwd`"
 
 # start browser
 bindsym $mod+b exec google-chrome-stable
@@ -67,6 +69,10 @@ bindsym $mod+Print exec rofi-wallpaper
 
 bindsym $mod+Delete exec rofi-exit
 
+bindsym $mod+Prior exec rofi-monitor
+bindsym $mod+Next exec rofi-screen-layout
+bindsym $mod+End exec i3lock -c 000000
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -79,10 +85,10 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -91,10 +97,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -103,7 +109,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+g split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -220,3 +226,4 @@ client.focused #ffffff #000000 #ffffff #000000 #ffffff77
 client.focused_inactive #333333 #5f676a #ffffff #484e50 #5f676a00
 client.unfocused #333333 #222222 #888888 #292d2e #22222200
 
+bindsym Print exec flameshot gui

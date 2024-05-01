@@ -70,3 +70,5 @@
     loop:
       - { 'script': 'wallpapers_selector.sh', 'executable': 'rofi-wallpaper'  }
       - { 'script': 'exit_selector.sh', 'executable': 'rofi-exit'  }
+      - { 'script': 'monitor_selector.sh', 'executable': 'rofi-monitor' }
+      - { 'script': 'screen_config.sh', 'executable': 'rofi-screen-layout' }
