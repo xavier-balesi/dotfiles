@@ -13,3 +13,10 @@
       deb: "{{ keystore_explorer_url }}"
       state: present
     become: true
+
+  - name: install some usefull tools by apt
+    apt:
+      pkg:
+      - nfs-common
+      state: present
+    become: true
