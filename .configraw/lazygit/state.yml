@@ -1,0 +1,69 @@
+lastupdatecheck: 0
+recentrepos:
+    - /home/xavier/config/dotfiles
+    - /home/xavier/dev/hps/pwc-ansible-rke
+    - /home/xavier/dev/hps/pwc-helm-charts
+    - /home/xavier/dev/hps/pwc-deploy
+    - /home/xavier/dev/hps/pwc-helmfiles/helmfiles-core
+    - /home/xavier/dev/hps/pwc-helmfiles
+    - /home/xavier/dev/hps/pwc-helmfiles-cba
+    - /home/xavier/dev/hps/pwc-infrastructure
+    - /home/xavier/dev/hps/pwc-helmfiles-infra
+    - /home/xavier/dev/hps/pwc-delivery
+    - /home/xavier/dev/hps/pwc-kyverno
+    - /home/xavier/dev/hps/pwc-common-v4
+    - /home/xavier/dev/hps/pwc-terraform-aws
+    - /home/xavier/.local/share/nvim/lazy/lsp_signature.nvim
+    - /home/xavier/dev/hps/pwc-switch-v4
+    - /home/xavier/dev/hps/pwc-backend-v4
+    - /home/xavier/dev/hps/pwc-cicd-libs
+    - /home/xavier/dev/hps/pwc-terraform-ovh
+    - /home/xavier/dev/go/xnlb
+    - /home/xavier/dev/hps/pwc-helmfiles-dhofar
+    - /home/xavier/dev/hps/pwc-edgeone-delivery
+    - /home/xavier/dev/hps/pwc-connect-api
+    - /home/xavier/dev/python/nicolax
+    - /home/xavier/dev/hps/pwc-terraform-openshift
+    - /home/xavier/dev/hps/pwc-monitoring-ovh
+    - /home/xavier/dev/hps/pwc-lifecycle
+    - /home/xavier/dev/hps/pwc-build-images
+    - /home/xavier/dev/hps/pwc-helm-asb
+    - /home/xavier/dev/hps/pwc-ui-shared
+    - /home/xavier/dev/hps/pwc-dataset
+    - /home/xavier/dev/hps/pwc-channel
+    - /home/xavier/dev/hps/pwc-ui
+    - /home/xavier/dev/hps/pwc-business
+    - /home/xavier/dev/hps/pwc-internet-ci_pwcintcom
+    - /home/xavier/dev/hps/pwc-helm-thales
+    - /home/xavier/dev/hps/pwc-lifecycle-test
+    - /home/xavier/dev/hps/pwc-image-delivery
+    - /home/xavier/tmp/pwc-terraform-ovh
+    - /home/xavier/dev/hps/pwc-apps-viewer
+    - /home/xavier/dev/hps/pwc-terraform-vsphere
+    - /home/xavier/dev/hps/pwc-helm-absa
+    - /home/xavier/dev/hps/pwc-toolbox
+    - /home/xavier/dev/hps/pwc-image-channel-base
+    - /home/xavier/dev/hps/pwc-gradle-plugin
+    - /home/xavier/dev/go/experiment/2d/golife
+    - /home/xavier/dev/hps/pwc-hsm-sim
+    - /home/xavier/dev/hps/pwc-image-cicd-toolbox
+    - /home/xavier/dev/hps/pwc-patch
+    - /home/xavier/dev/hps/pwc-image-cicd-infra
+    - /home/xavier/dev/python/foobartory
+    - /home/xavier/dev/go/tcpserver
+startuppopupversion: 5
+lastversion: 0.43.1
+customcommandshistory:
+    - qa
+    - q
+    - xa
+    - ls -l
+    - ls
+hidecommandlog: false
+ignorewhitespaceindiffview: true
+diffcontextsize: 2
+renamesimilaritythreshold: 50
+localbranchsortorder: recency
+remotebranchsortorder: alphabetical
+gitlogorder: topo-order
+gitlogshowgraph: always

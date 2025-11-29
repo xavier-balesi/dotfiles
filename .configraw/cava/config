@@ -1,0 +1,10 @@
+; vim:ft=dosini
+; official exampe : https://github.com/karlstav/cava/blob/master/example_files/config
+
+[general]
+sensitivity = 50
+bar_width = 4
+
+[color]
+foreground = '#F0C674'
+; foreground = '#A89984'
