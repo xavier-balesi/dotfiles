@@ -11,7 +11,7 @@
     set_fact:
       local_bin_directory: "{{ ansible_env.HOME }}/.local/bin"
       lazygit_local_directory: "{{ ansible_env.HOME }}/Apps/lazygit"
-      lazygit_version: 0.39.4
+      lazygit_version: 0.43.1
       lazygit_architecture: x86_64
 
   - name: set secondary variables
