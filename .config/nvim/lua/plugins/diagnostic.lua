@@ -17,7 +17,7 @@ local aerial_plugin = {
     'stevearc/aerial.nvim',
     dependencies = {
         "nvim-treesitter/nvim-treesitter",
-        "nvim-tree/nvim-web-devicons"
+        'kyazdani42/nvim-web-devicons',
     },
     opts = {
         lsp = {

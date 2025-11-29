@@ -13,6 +13,21 @@ local dap_plugin = {
             { '<localleader>i',  dap.step_into,         desc = "[DAP] step into" },
             { '<localleader>!!', dap.terminate,         desc = "[DAP] terminate" },
         }
+    end,
+    config = function()
+        local dap = require('dap')
+        dap.configurations.java = {
+            {
+                type = "java",
+                request = "attach",
+                mode = 'remote',
+                name = "attach remote",
+                projectName = 'grpc-example-client',
+                mainClass = "hps.pwc.grpc_client.GrpcClientApplication",
+                hostName = '127.0.0.1',
+                port = 5005
+            }
+        }
     end
 }
 

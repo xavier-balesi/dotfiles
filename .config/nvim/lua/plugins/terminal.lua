@@ -1,7 +1,7 @@
 local toggleterm_plugin = {
     'akinsho/toggleterm.nvim',
     version = "*",
-    event = 'VimEnter',
+    event = 'VeryLazy',
     opts = {
         direction = 'horizontal',
         open_mapping = [[<A-m>]],
@@ -10,6 +10,17 @@ local toggleterm_plugin = {
         start_in_insert = true,
         float_opts = {
             border = 'curved',
+        },
+        highlights = {
+            -- highlights which map to a highlight group name and a table of it's values
+            -- NOTE: this is only a subset of values, any group placed here will be set for the terminal window split
+            NormalFloat = {
+                link = 'Normal'
+            },
+            FloatBorder = {
+                -- guifg = "#FF0000",
+                -- guibg = "#0000FF",
+            },
         },
     },
     init = function()
@@ -27,6 +38,9 @@ local toggleterm_plugin = {
         -- if you only want these mappings for toggle term use term://*toggleterm#* instead
         vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
     end,
+    keys = {
+        { '<leader>of', '<CMD>ToggleTerm direction=float<CR>', desc = '[ToggleTerm] open float' }
+    }
 }
 
 return {

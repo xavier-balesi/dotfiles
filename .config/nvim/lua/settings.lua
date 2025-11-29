@@ -8,6 +8,8 @@ vim.g.python3_host_prog = os.getenv('NVIM_PYTHON_PATH')
 opt.number = true
 opt.cursorline = true
 opt.ttyfast = true
+opt.scrolloff = 10
+opt.showtabline = 2
 
 -- [[ system ]]
 opt.mouse = 'a'

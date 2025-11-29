@@ -1,6 +1,6 @@
 local lspconfig_plugin = {
     'neovim/nvim-lspconfig',
-    event = { 'BufReadPre', 'BufNewFile' },
+    event = { 'BufReadPre', 'BufNewFile', 'BufEnter' },
     dependencies = {
         'folke/neodev.nvim',
         'williamboman/mason.nvim',
@@ -78,6 +78,7 @@ local nvim_java_plugin = {
     dependencies = {
         'nvim-java/lua-async-await',
         'nvim-java/nvim-java-core',
+        'nvim-java/nvim-java-refactor',
         'nvim-java/nvim-java-test',
         'nvim-java/nvim-java-dap',
         'MunifTanjim/nui.nvim',
