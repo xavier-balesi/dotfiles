@@ -1,0 +1,27 @@
+
+# #504945
+
+gui:
+  theme:
+    activeBorderColor:
+      - bold
+      - '#C1A78E'
+    inactiveBorderColor:
+      - '#504945'
+    searchingActiveBorderColor:
+      - cyan
+      - bold
+    optionsTextColor:
+      - blue
+    selectedLineBgColor:
+      - '#504945' # set to `default` to have no background colour
+    selectedRangeBgColor:
+      - blue
+    cherryPickedCommitBgColor:
+      - cyan
+    cherryPickedCommitFgColor:
+      - blue
+    unstagedChangesColor:
+      - red
+    defaultFgColor:
+      - default

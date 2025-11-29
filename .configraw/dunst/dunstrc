@@ -1,0 +1,106 @@
+#See dunst(5) for all configuration options
+
+[global]
+
+    monitor = 1
+
+    follow = keyboard
+
+    # width = (0, 1500)
+    width = 30
+
+    geometry = "300x5-10+10"
+
+    height = 42
+
+    origin = top-right
+
+    offset = 48x60
+
+    scale = 0
+
+    notification_limit = 20
+
+    progress_bar = true
+
+    progress_bar_height = 10
+
+    progress_bar_frame_width = 1
+
+
+    progress_bar_min_width = 15
+
+    progress_bar_max_width = 30
+
+    indicate_hidden = yes
+
+    transparency = 6
+
+    separator_height = 5
+
+    padding = 15
+
+    horizontal_padding = 8
+
+    text_icon_padding = 0
+
+    frame_width = 5
+
+    frame_color = "#ee2200"
+
+    separator_color = frame
+
+    sort = yes
+
+    font = Iosevka Nerd Font 10
+
+    line_height = 0
+
+    markup = full
+
+    format = "%a - <b>%s</b>\n%b %p"
+
+    alignment = left
+
+    vertical_alignment = center
+
+    show_age_threshold = 60
+
+    ellipsize = middle
+
+    ignore_newline = yes
+
+    stack_duplicates = true
+
+    hide_duplicate_count = false
+
+    show_indicators = no
+
+    icon_position = left
+
+    icon_size = 128
+
+    max_icon_size = 80
+
+[urgency_low]
+    # IMPORTANT: colors have to be defined in quotation marks.
+    # Otherwise the "#" and following would be interpreted as a comment.
+    background = "#101419"
+    foreground = "#b6beca"
+    highlight  = "#b6beca"
+    timeout = 6
+
+[urgency_normal]
+    background = "#101419"
+    foreground = "#b6beca"
+    highlight  = "#b6beca"
+    highlight-background = "#15191e"
+    timeout = 6
+    max_icon_size = 128
+    icon_size = 128
+
+[urgency_critical]
+    background = "#101419"
+    foreground = "#b6beca"
+    highlight  = "#b6beca"
+    timeout = 10
