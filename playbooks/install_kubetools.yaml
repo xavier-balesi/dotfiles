@@ -4,7 +4,7 @@
   hosts: localhost
   connection: local
   vars:
-    kube_tools_k9s_version: v0.32.4
+    kube_tools_k9s_version: v0.50.9
   tasks:
 
   - name: set directories variables
@@ -77,3 +77,4 @@
       deb: https://github.com/derailed/k9s/releases/download/{{ kube_tools_k9s_version }}/k9s_linux_amd64.deb
     become: yes
     tags: k9s
+    # TODO add install .config/k9s
