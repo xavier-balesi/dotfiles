@@ -29,3 +29,25 @@ vim.api.nvim_create_autocmd(
         group = au_id,
     }
 )
+
+-- helm
+local au_id = vim.api.nvim_create_augroup('helm-filetype', { clear = true })
+vim.api.nvim_create_autocmd(
+    { "BufNewFile", "BufRead" }, {
+        pattern = {
+            "*.yaml.gotmpl",
+            "*/helmfile.d/*.yaml",
+            "*/helmfile.d/**/*.gotmpl",
+            "*/templates/*/*.yml",
+            "*/templates/**/*.yml",
+            "*/templates/*/*.yaml",
+            "*/templates/**/*.yaml"
+        },
+        callback = function()
+            vim.opt_local.filetype = 'helm'
+            vim.opt_global.filetype = 'helm'
+        end,
+        -- command = [[ setf helm ]],
+        group = au_id,
+    }
+)

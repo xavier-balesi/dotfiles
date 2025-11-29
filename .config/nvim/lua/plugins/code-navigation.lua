@@ -35,7 +35,28 @@ local glance_plugin = {
     },
 }
 
+local marks_plugin = {
+    'chentoast/marks.nvim',
+    opts = {}
+}
+
+local vim_indent_object_plugin = {
+    'michaeljsmith/vim-indent-object',
+}
+
+local remote_sshfs_plugin = {
+    "nosduco/remote-sshfs.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    opts = {
+        -- Refer to the configuration section below
+        -- or leave empty for defaults
+    },
+}
+
 return {
     goto_preview,
     glance_plugin,
+    marks_plugin,
+    vim_indent_object_plugin,
+    remote_sshfs_plugin,
 }

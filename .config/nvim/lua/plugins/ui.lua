@@ -43,8 +43,9 @@ local nvimtree = {
         },
     },
     keys = {
-        { '<leader>n',  ':NvimTreeFocus<CR>',      desc = 'nvim-tree focus' },
-        { '<leader>tt', '<CMD>NvimTreeToggle<CR>', desc = 'nvim-tree toggle' },
+        { '<leader>n',  ':NvimTreeFocus<CR>',        desc = 'nvim-tree focus' },
+        { '<leader>tt', '<CMD>NvimTreeToggle<CR>',   desc = 'nvim-tree toggle' },
+        { '<leader>tf', '<CMD>NvimTreeFindFile<CR>', desc = 'nvim-tree find file' },
     },
     config = function(_, opts)
         local nvim_on_attach = function(bufnr)
@@ -95,19 +96,19 @@ local lualine_plugin = {
         lualine.setup({
             sections = {
                 lualine_a = { 'mode' },
-                lualine_b = { 'lsp_progress' },
-                lualine_c = { { "filename", path = 1 } },
+                lualine_b = { { "filename", path = 1 } },
+                lualine_c = { require("yaml_nvim").get_yaml_key },
                 lualine_x = { 'filetype' },
                 lualine_y = { 'progress' },
                 lualine_z = { 'location' }
             },
-            tabline = {
-                lualine_a = { 'buffers' },
+            inactive_sections = {
+                lualine_a = {},
                 lualine_b = {},
                 lualine_c = { { 'filename', path = 1 } },
                 lualine_x = {},
-                lualine_y = { 'tabs' },
-                lualine_z = {},
+                lualine_y = {},
+                lualine_z = {}
             },
             winbar = {
                 lualine_a = {},
@@ -115,7 +116,7 @@ local lualine_plugin = {
                 lualine_c = {},
                 lualine_x = {},
                 lualine_y = {},
-                lualine_z = {}
+                lualine_z = {},
             },
             inactive_winbar = {
                 lualine_a = {},
@@ -123,7 +124,7 @@ local lualine_plugin = {
                 lualine_c = {},
                 lualine_x = {},
                 lualine_y = {},
-                lualine_z = {}
+                lualine_z = {},
             },
             extensions = { 'toggleterm', 'fugitive', 'nvim-tree', 'nvim-dap-ui', 'quickfix' },
             options = {
@@ -136,12 +137,97 @@ local lualine_plugin = {
 
 local scope = { 'tiagovla/scope.nvim' }
 
+-- Tabby config
+local palette = {
+    accent = '#B27B4C',     -- orange
+    accent_sec = '#D2AC63', -- fg4
+    bg = '#312E2B',         -- bg1
+    bg_sec = '#4B4541',     -- bg2
+    fg = '#B7AFA7',         -- fg2
+    fg_sec = '#9A8C7A',     -- fg3
+}
+local function make_theme()
+    return {
+        line = 'TabLineFill',
+        head = { fg = '#000000', bg = palette.accent, style = 'bold' },
+        current_tab = { fg = palette.bg, bg = palette.accent_sec, style = 'bold' },
+        tab = { fg = palette.fg, bg = palette.bg_sec },
+        current_win = { fg = palette.accent_sec, bg = palette.bg_sec, style = 'bold' },
+        win = { fg = palette.fg, bg = palette.bg_sec },
+        tail = { fg = palette.bg, bg = palette.accent_sec },
+    }
+end
 
+
+local function tabby_config()
+    local theme = make_theme()
+    vim.opt.showtabline = 2
+    require('tabby.tabline').set(function(line)
+        local cwd = ' ' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':t') .. ' '
+        local branch = vim.b.gitsigns_head or '-'
+        return {
+            { { cwd, hl = theme.head }, line.sep('', theme.head, theme.line) },
+            { line.sep('', theme.head, theme.line), { branch, hl = theme.head }, line.sep('', theme.head, theme.line), margin = ' ', hl = theme.head },
+            line.tabs().foreach(function(tab)
+                local hl = tab.is_current() and theme.current_tab or theme.tab
+                return {
+                    line.sep('', hl, theme.line),
+                    tab.is_current() and '' or '',
+                    tab.number(),
+                    tab.name(),
+                    line.sep('', hl, theme.line),
+                    margin = ' ',
+                    hl = hl,
+                }
+            end),
+            line.spacer(),
+            line.wins_in_tab(line.api.get_current_tab()).foreach(function(win)
+                local hl = win.is_current() and theme.current_win or theme.win
+
+                -- exclude some buffers
+                local exclude_patterns = { 'NvimTree_' }
+                for _, pattern in ipairs(exclude_patterns) do
+                    if win.buf_name():find(pattern) then
+                        return
+                    end
+                end
+
+                return {
+                    line.sep('', theme.win, theme.line),
+                    -- win.is_current() and '' or '',
+                    win.buf_name(),
+                    { win.buf().is_changed() and '' or '' },
+                    line.sep('', theme.win, theme.line),
+                    margin = ' ',
+                    hl = hl,
+                }
+            end),
+            { line.sep('', theme.tail, theme.line), { '  ', hl = theme.tail } },
+            hl = theme.line,
+        }
+    end, {
+        tab_name = { name_fallback = function(tabid) return "New" end },
+        buf_name = { mode = 'unique' },
+    })
+end
 local tabby = {
     'nanozuki/tabby.nvim',
     event = 'VimEnter',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function() end
+    -- commit = 'e14a87cba37a6948e903e9292fbf3cb673c1cf94',
+    dependencies = "nvim-tree/nvim-web-devicons",
+    config = tabby_config,
+    keys = {
+        { '<leader>tr',
+            function()
+                vim.ui.input({ prompt = 'Tabby rename: ' }, function(input)
+                    vim.fn.execute(':Tabby rename_tab ' .. input)
+                end)
+            end, { desc = '[Tabby] rename current tab' } },
+        { '<leader>wp', ':Tabby pick_window<CR>', { desc = '[Tabby] select window' } },
+        { 'g<',         ':-tabmove<CR>',          { desc = 'move tab to left' } },
+        { 'g>',         ':+tabmove<CR>',          { desc = 'move tab to right' } },
+
+    },
 }
 
 local nvim_notify = {
@@ -166,7 +252,7 @@ local ibl = {
 }
 
 local pretty_fold = {
-    'anuvyklack/pretty-fold.nvim',
+    'bbjornstad/pretty-fold.nvim',
     dependencies = { 'neovim/nvim-lspconfig', 'williamboman/mason-lspconfig.nvim' },
     lazy = false,
     opts = {
@@ -247,13 +333,58 @@ local auto_session = {
     },
 
     init = function()
-        vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,globals"
+        vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,globals,localoptions"
     end,
 }
 
 local statuscol_plugin = {
     'luukvbaal/statuscol.nvim',
     opts = {},
+}
+
+local cool_chunk_plugin = {
+    "Mr-LLLLL/cool-chunk.nvim",
+    event = { "CursorHold", "CursorHoldI" },
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+        require("cool-chunk").setup({
+            chunk = {
+                support_filetypes = {
+                    "json",
+                    "go",
+                    "c",
+                    "python",
+                    "cpp",
+                    "rust",
+                    "h",
+                    "lua",
+                    "groovy",
+                    "helm",
+                },
+            }
+        })
+    end
+}
+
+local specs_plugin = {
+    "echasnovski/mini.animate",
+    event = "VeryLazy",
+    opts = {},
+}
+
+local yaml_plugin = {
+    "cuducos/yaml.nvim",
+    ft = { "yaml" }, -- optional
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-telescope/telescope.nvim", -- optional
+    },
+}
+
+local killersheep_plugin = {
+    "seandewar/killersheep.nvim"
 }
 
 
@@ -269,4 +400,8 @@ return {
     ibl,
     close_buffers,
     statuscol_plugin,
+    cool_chunk_plugin,
+    specs_plugin,
+    yaml_plugin,
+    killersheep_plugin,
 }
